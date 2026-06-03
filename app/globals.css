@@ -1,35 +1,40 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
-  --accent: #1e3a5f;
-  --muted: #64748b;
-  --border: #e2e8f0;
-  --surface: #f8fafc;
+  --bg-deep:    #06090f;
+  --bg-base:    #0d1117;
+  --bg-card:    #161d2a;
+  --bg-card-2:  #1a2235;
+  --border:     rgba(255,255,255,0.07);
+  --border-hi:  rgba(96,165,250,0.3);
+  --text-head:  #f0f6ff;
+  --text-body:  #8b9cbd;
+  --text-muted: #4e607a;
+  --accent:     #3b82f6;
+  --accent-hi:  #60a5fa;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg-deep);
+  color: var(--text-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
+  from { opacity: 0; transform: translateY(28px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-
-.fade-up {
-  animation: fadeUp 0.7s ease-out forwards;
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50%       { opacity: 0.8; transform: scale(1.08); }
 }
 
-.fade-up-delay-1 { animation-delay: 0.1s; opacity: 0; }
-.fade-up-delay-2 { animation-delay: 0.2s; opacity: 0; }
-.fade-up-delay-3 { animation-delay: 0.35s; opacity: 0; }
-.fade-up-delay-4 { animation-delay: 0.5s; opacity: 0; }
+.fade-up            { animation: fadeUp 0.75s ease-out forwards; }
+.fade-up-d1         { animation-delay: 0.05s; opacity: 0; }
+.fade-up-d2         { animation-delay: 0.2s;  opacity: 0; }
+.fade-up-d3         { animation-delay: 0.38s; opacity: 0; }
+.fade-up-d4         { animation-delay: 0.55s; opacity: 0; }
+.glow-pulse         { animation: pulse-glow 6s ease-in-out infinite; }

@@ -1,3 +1,5 @@
+import TiltCard from "./TiltCard";
+
 const cards = [
   {
     number: "01",
@@ -27,35 +29,61 @@ const cards = [
 
 export default function WhatIDo() {
   return (
-    <section id="what-i-do" className="bg-white py-24 px-6">
-      <div className="max-w-4xl mx-auto">
+    <section
+      id="what-i-do"
+      className="py-24 px-6"
+      style={{ background: "var(--bg-base)" }}
+    >
+      <div className="max-w-5xl mx-auto">
         <div className="mb-14">
-          <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-blue-500 uppercase mb-4">
-            <span className="w-6 h-px bg-blue-500" />
+          <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-blue-400 uppercase mb-4">
+            <span className="w-6 h-px bg-blue-400" />
             Expertise
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tight">
+          <h2
+            className="text-4xl md:text-5xl font-bold tracking-tight"
+            style={{ color: "var(--text-head)" }}
+          >
             Where I create value
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {cards.map((card) => (
-            <div
+            <TiltCard
               key={card.title}
-              className="group relative bg-slate-50 rounded-xl p-7 border border-slate-200 hover:border-blue-200 hover:-translate-y-1 hover:shadow-lg transition-all duration-200"
+              className="group relative rounded-xl p-7 overflow-hidden cursor-default"
+              style={{
+                background: "var(--bg-card)",
+                border: "1px solid var(--border)",
+              }}
             >
-              <div className="text-xs font-bold text-blue-400 tracking-widest mb-4">
-                {card.number}
+              {/* inner glow on hover via pseudo-like overlay */}
+              <div
+                className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                style={{
+                  background:
+                    "radial-gradient(circle at 50% 0%, rgba(59,130,246,0.08) 0%, transparent 70%)",
+                }}
+              />
+              {/* top accent line */}
+              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+              <div className="relative">
+                <div className="text-xs font-bold text-blue-500 tracking-widest mb-4">
+                  {card.number}
+                </div>
+                <h3
+                  className="text-lg font-bold mb-3 group-hover:text-blue-400 transition-colors"
+                  style={{ color: "var(--text-head)" }}
+                >
+                  {card.title}
+                </h3>
+                <p className="text-sm leading-relaxed" style={{ color: "var(--text-body)" }}>
+                  {card.description}
+                </p>
               </div>
-              <h3 className="text-lg font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">
-                {card.title}
-              </h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                {card.description}
-              </p>
-              <div className="absolute bottom-0 left-0 h-0.5 w-0 bg-blue-500 rounded-full group-hover:w-full transition-all duration-300" />
-            </div>
+            </TiltCard>
           ))}
         </div>
       </div>

@@ -20,8 +20,11 @@ export default function Home() {
         <Consulting />
         <Contact />
       </main>
-      <footer className="bg-[#1e3a5f] border-t border-white/10 py-6 px-6">
-        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-blue-300">
+      <footer
+        className="py-6 px-6"
+        style={{ borderTop: "1px solid var(--border)", background: "var(--bg-deep)" }}
+      >
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-sm" style={{ color: "var(--text-muted)" }}>
           <span>© {new Date().getFullYear()} John Moffa</span>
           <span>Customer Operations &amp; Solutions Leader</span>
         </div>

@@ -49,57 +49,93 @@ const jobs = [
 
 export default function Experience() {
   return (
-    <section id="experience" className="bg-slate-50 py-24 px-6">
-      <div className="max-w-4xl mx-auto">
+    <section
+      id="experience"
+      className="py-24 px-6"
+      style={{ background: "var(--bg-base)" }}
+    >
+      <div className="max-w-5xl mx-auto">
         <div className="mb-14">
-          <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-blue-500 uppercase mb-4">
-            <span className="w-6 h-px bg-blue-500" />
+          <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-blue-400 uppercase mb-4">
+            <span className="w-6 h-px bg-blue-400" />
             Work History
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tight">
+          <h2
+            className="text-4xl md:text-5xl font-bold tracking-tight"
+            style={{ color: "var(--text-head)" }}
+          >
             Experience
           </h2>
         </div>
 
-        {/* Timeline */}
         <div className="relative">
-          {/* Vertical line */}
-          <div className="absolute left-4 top-2 bottom-2 w-px bg-slate-200 hidden md:block" />
+          {/* Timeline line */}
+          <div
+            className="absolute left-[15px] top-3 bottom-3 w-px hidden md:block"
+            style={{ background: "var(--border)" }}
+          />
 
-          <div className="space-y-8">
+          <div className="space-y-6">
             {jobs.map((job) => (
-              <div key={job.role} className="relative md:pl-14">
+              <div key={job.role} className="relative md:pl-12">
                 {/* Timeline dot */}
                 <div
-                  className={`absolute left-[9px] top-6 w-[11px] h-[11px] rounded-full border-2 hidden md:block ${
-                    job.highlight
-                      ? "border-blue-500 bg-blue-500"
-                      : "border-slate-400 bg-white"
-                  }`}
+                  className={`absolute left-[9px] top-7 w-[13px] h-[13px] rounded-full hidden md:block transition-all`}
+                  style={{
+                    background: job.highlight ? "#3b82f6" : "var(--bg-card)",
+                    border: job.highlight
+                      ? "2px solid #60a5fa"
+                      : "2px solid var(--text-muted)",
+                    boxShadow: job.highlight
+                      ? "0 0 12px rgba(59,130,246,0.6)"
+                      : "none",
+                  }}
                 />
 
                 <div
-                  className={`bg-white rounded-xl border p-7 transition-all hover:shadow-md ${
-                    job.highlight ? "border-blue-200 shadow-sm" : "border-slate-200"
-                  }`}
+                  className="rounded-xl p-7 transition-all hover:translate-y-[-2px] duration-200"
+                  style={{
+                    background: "var(--bg-card)",
+                    border: job.highlight
+                      ? "1px solid rgba(59,130,246,0.25)"
+                      : "1px solid var(--border)",
+                    boxShadow: job.highlight
+                      ? "0 0 30px rgba(59,130,246,0.05)"
+                      : "none",
+                  }}
                 >
                   <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
                     <div>
-                      <h3 className="text-lg font-bold text-slate-900">{job.role}</h3>
+                      <h3
+                        className="text-lg font-bold"
+                        style={{ color: "var(--text-head)" }}
+                      >
+                        {job.role}
+                      </h3>
                       {job.company && (
-                        <p className="text-blue-600 font-semibold text-sm mt-0.5">
+                        <p className="text-blue-400 font-semibold text-sm mt-0.5">
                           {job.company}
                         </p>
                       )}
                     </div>
                     {job.period && (
-                      <span className="text-xs font-semibold text-slate-400 bg-slate-100 px-3 py-1 rounded-full shrink-0 self-start">
+                      <span
+                        className="text-xs font-semibold px-3 py-1 rounded-full shrink-0 self-start"
+                        style={{
+                          background: "var(--bg-card-2)",
+                          color: "var(--text-muted)",
+                          border: "1px solid var(--border)",
+                        }}
+                      >
                         {job.period}
                       </span>
                     )}
                   </div>
 
-                  <p className="text-slate-600 text-sm leading-relaxed mb-5">
+                  <p
+                    className="text-sm leading-relaxed mb-5"
+                    style={{ color: "var(--text-body)" }}
+                  >
                     {job.description}
                   </p>
 
@@ -108,7 +144,12 @@ export default function Experience() {
                       {job.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="inline-block px-2.5 py-1 text-xs font-medium bg-slate-100 text-slate-600 rounded-md"
+                          className="inline-block px-2.5 py-1 text-xs font-medium rounded-md"
+                          style={{
+                            background: "var(--bg-card-2)",
+                            color: "var(--text-body)",
+                            border: "1px solid var(--border)",
+                          }}
                         >
                           {tag}
                         </span>
