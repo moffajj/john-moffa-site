@@ -13,14 +13,14 @@ export default function Hero() {
       <div
         className="absolute top-0 right-0 w-[700px] h-[700px] rounded-full pointer-events-none opacity-20"
         style={{
-          background: "radial-gradient(circle, rgba(99,102,241,0.4) 0%, transparent 65%)",
+          background: "radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 65%)",
           transform: "translate(30%, -20%)",
         }}
       />
       <div
         className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full pointer-events-none opacity-10"
         style={{
-          background: "radial-gradient(circle, rgba(59,130,246,0.5) 0%, transparent 65%)",
+          background: "radial-gradient(circle, rgba(99,102,241,0.2) 0%, transparent 65%)",
           transform: "translate(-30%, 20%)",
         }}
       />
