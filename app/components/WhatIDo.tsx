@@ -2,84 +2,83 @@ import TiltCard from "./TiltCard";
 
 const cards = [
   {
-    number: "01",
+    id: "ops",
+    label: "01",
     title: "Customer Operations",
-    description:
-      "Building the systems, processes, and communication loops that help customers move from interest to adoption without chaos.",
+    description: "Building the systems, processes, and communication loops that move customers from interest to adoption — without the chaos.",
+    span: "lg:col-span-2",
+    accent: "#3b82f6",
   },
   {
-    number: "02",
-    title: "Enterprise Onboarding & Implementation",
-    description:
-      "Designing rollout plans, training flows, stakeholder alignment, and implementation processes that help teams get value faster.",
-  },
-  {
-    number: "03",
-    title: "Technical Solutions & Support",
-    description:
-      "Bridging customers, product, engineering, and internal teams to solve technical problems, reduce friction, and improve the customer experience.",
-  },
-  {
-    number: "04",
+    id: "gtm",
+    label: "02",
     title: "GTM & Cross-Functional Execution",
-    description:
-      "Partnering with Sales, Marketing, Product, Engineering, and Leadership to support demos, launches, customer communication, feedback loops, and growth initiatives.",
+    description: "Partnering with Sales, Marketing, Product, and Engineering to support demos, launches, feedback loops, and growth.",
+    span: "lg:col-span-1 lg:row-span-2",
+    accent: "#7c3aed",
+  },
+  {
+    id: "onboard",
+    label: "03",
+    title: "Enterprise Onboarding & Implementation",
+    description: "Designing rollout plans, training flows, and stakeholder alignment that help teams get value faster.",
+    span: "lg:col-span-1",
+    accent: "#2563eb",
+  },
+  {
+    id: "tech",
+    label: "04",
+    title: "Technical Solutions & Support",
+    description: "Bridging customers, product, and engineering to solve technical problems and reduce friction.",
+    span: "lg:col-span-1",
+    accent: "#6d28d9",
   },
 ];
 
 export default function WhatIDo() {
   return (
-    <section
-      id="what-i-do"
-      className="py-24 px-6"
-      style={{ background: "var(--bg-base)" }}
-    >
-      <div className="max-w-5xl mx-auto">
+    <section id="what-i-do" className="py-24 px-6" style={{ background: "var(--bg)" }}>
+      <div className="max-w-6xl mx-auto">
         <div className="mb-14">
-          <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-blue-400 uppercase mb-4">
-            <span className="w-6 h-px bg-blue-400" />
-            Expertise
+          <span className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase mb-4" style={{ color: "var(--blue)" }}>
+            <span className="w-6 h-px" style={{ background: "var(--blue)" }} />
+            What I do
           </span>
-          <h2
-            className="text-4xl md:text-5xl font-bold tracking-tight"
-            style={{ color: "var(--text-head)" }}
-          >
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight" style={{ color: "var(--head)" }}>
             Where I create value
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {/* Bento grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {cards.map((card) => (
             <TiltCard
-              key={card.title}
-              className="group relative rounded-xl p-7 overflow-hidden cursor-default"
-              style={{
-                background: "var(--bg-card)",
-                border: "1px solid var(--border)",
-              }}
+              key={card.id}
+              className={`group relative rounded-2xl p-7 overflow-hidden cursor-default ${card.span}`}
+              style={{ background: "var(--card)", border: "1px solid var(--border)" }}
             >
-              {/* inner glow on hover via pseudo-like overlay */}
+              {/* Top accent gradient line */}
               <div
-                className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                style={{
-                  background:
-                    "radial-gradient(circle at 50% 0%, rgba(59,130,246,0.08) 0%, transparent 70%)",
-                }}
+                className="absolute top-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{ background: `linear-gradient(90deg, ${card.accent}, transparent)` }}
               />
-              {/* top accent line */}
-              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              {/* Hover glow */}
+              <div
+                className="absolute -top-20 -left-20 w-64 h-64 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                style={{ background: `radial-gradient(circle, ${card.accent}18 0%, transparent 70%)` }}
+              />
 
-              <div className="relative">
-                <div className="text-xs font-bold text-blue-500 tracking-widest mb-4">
-                  {card.number}
+              <div className="relative h-full flex flex-col">
+                <div className="text-xs font-bold tracking-widest mb-4" style={{ color: card.accent }}>
+                  {card.label}
                 </div>
                 <h3
-                  className="text-lg font-bold mb-3 group-hover:text-blue-400 transition-colors"
-                  style={{ color: "var(--text-head)" }}
+                  className="text-xl font-bold mb-3 group-hover:text-white transition-colors"
+                  style={{ color: "var(--head)" }}
                 >
                   {card.title}
                 </h3>
-                <p className="text-sm leading-relaxed" style={{ color: "var(--text-body)" }}>
+                <p className="text-sm leading-relaxed mt-auto" style={{ color: "var(--body)" }}>
                   {card.description}
                 </p>
               </div>

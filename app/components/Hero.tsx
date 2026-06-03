@@ -1,186 +1,157 @@
 "use client";
 
-import WireframeSphere from "./WireframeSphere";
+import Image from "next/image";
 
 export default function Hero() {
   return (
     <section
       id="hero"
       className="relative min-h-screen flex flex-col justify-center px-6 overflow-hidden"
-      style={{ background: "var(--bg-deep)" }}
+      style={{ background: "var(--bg)" }}
     >
-      {/* Ambient glow blobs */}
+      {/* Background glow */}
       <div
-        className="glow-pulse absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full pointer-events-none"
+        className="absolute top-0 right-0 w-[700px] h-[700px] rounded-full pointer-events-none opacity-20"
         style={{
-          background:
-            "radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(99,102,241,0.4) 0%, transparent 65%)",
+          transform: "translate(30%, -20%)",
         }}
       />
       <div
-        className="glow-pulse absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full pointer-events-none"
+        className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full pointer-events-none opacity-10"
         style={{
-          background:
-            "radial-gradient(circle, rgba(96,165,250,0.07) 0%, transparent 70%)",
-          animationDelay: "3s",
-        }}
-      />
-
-      {/* Subtle grid */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.025]"
-        style={{
-          backgroundImage:
-            "linear-gradient(var(--text-head) 1px, transparent 1px), linear-gradient(90deg, var(--text-head) 1px, transparent 1px)",
-          backgroundSize: "72px 72px",
+          background: "radial-gradient(circle, rgba(59,130,246,0.5) 0%, transparent 65%)",
+          transform: "translate(-30%, 20%)",
         }}
       />
 
-      {/* Two-column layout */}
-      <div className="relative max-w-5xl mx-auto w-full py-28 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        {/* Left: text */}
+      <div className="relative max-w-6xl mx-auto w-full py-28 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        {/* LEFT — Text */}
         <div>
-          <div className="fade-up fade-up-d1 mb-5 flex items-center gap-2">
-            <span className="w-6 h-px bg-blue-400" />
-            <span className="text-xs font-semibold tracking-widest text-blue-400 uppercase">
-              Customer Operations &amp; Solutions Leader
-            </span>
+          {/* Status badge */}
+          <div className="fade-up d1 inline-flex items-center gap-2.5 px-4 py-2 rounded-full mb-8 text-sm font-medium"
+            style={{ background: "var(--card)", border: "1px solid var(--border)", color: "var(--head)" }}
+          >
+            <span className="pulse-dot w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
+            Available for new opportunities
           </div>
 
           <h1
-            className="fade-up fade-up-d2 text-5xl md:text-6xl font-bold leading-[1.05] tracking-tight mb-6"
-            style={{ color: "var(--text-head)" }}
+            className="fade-up d2 font-bold leading-[1.05] tracking-tight mb-6"
+            style={{ color: "var(--head)", fontSize: "clamp(2.5rem, 5vw, 3.75rem)" }}
           >
-            Turning customer complexity into{" "}
-            <span className="text-blue-400">operational clarity.</span>
+            Hi, I&apos;m{" "}
+            <span
+              style={{
+                background: "var(--grad)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              John Moffa.
+            </span>
+            <br />
+            I run customer ops.
           </h1>
 
-          <p
-            className="fade-up fade-up-d3 text-lg leading-relaxed mb-10 max-w-lg"
-            style={{ color: "var(--text-body)" }}
-          >
-            I&apos;m John Moffa — 15+ years across SaaS, IT Operations,
-            enterprise onboarding, technical implementation, support, and
-            go-to-market execution.
+          <p className="fade-up d3 text-lg leading-relaxed mb-4 max-w-lg" style={{ color: "var(--body)" }}>
+            15+ years helping SaaS companies turn customer complexity into operational clarity — across onboarding, implementation, support, and go-to-market.
           </p>
 
-          <div className="fade-up fade-up-d4 flex flex-col sm:flex-row gap-3 mb-14">
+          <p className="fade-up d3 text-sm mb-10" style={{ color: "var(--muted)" }}>
+            Formerly at <span style={{ color: "var(--body)" }}>Roam</span> &nbsp;·&nbsp; Previously{" "}
+            <span style={{ color: "var(--body)" }}>Head of IT Ops at Yext</span>
+          </p>
+
+          <div className="fade-up d4 flex flex-col sm:flex-row gap-3 mb-12">
             <a
               href="#experience"
-              className="inline-flex items-center justify-center px-7 py-3.5 rounded-lg bg-blue-500 text-white font-semibold text-sm hover:bg-blue-400 transition-colors"
+              className="inline-flex items-center justify-center px-7 py-3.5 rounded-xl text-white font-semibold text-sm transition-all hover:opacity-90 hover:scale-105"
+              style={{ background: "var(--grad)" }}
             >
               View Experience
             </a>
             <a
               href="#contact"
-              className="inline-flex items-center justify-center px-7 py-3.5 rounded-lg font-semibold text-sm transition-colors"
-              style={{
-                border: "1px solid var(--border)",
-                color: "var(--text-body)",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor =
-                  "rgba(96,165,250,0.4)";
-                (e.currentTarget as HTMLElement).style.color = "var(--text-head)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor =
-                  "var(--border)";
-                (e.currentTarget as HTMLElement).style.color = "var(--text-body)";
-              }}
+              className="inline-flex items-center justify-center px-7 py-3.5 rounded-xl font-semibold text-sm transition-all hover:scale-105"
+              style={{ background: "var(--card)", border: "1px solid var(--border)", color: "var(--head)" }}
             >
-              Contact Me
+              Let&apos;s Talk
             </a>
           </div>
 
-          {/* Stats */}
-          <div
-            className="fade-up fade-up-d4 grid grid-cols-3 gap-6 pt-8"
-            style={{ borderTop: "1px solid var(--border)" }}
-          >
-            <div>
+          {/* Quick stats */}
+          <div className="fade-up d5 grid grid-cols-3 gap-4">
+            {[
+              { val: "15+", label: "Years in tech" },
+              { val: "Full", label: "Customer lifecycle" },
+              { val: "GTM→", label: "Support to product" },
+            ].map((s) => (
               <div
-                className="text-3xl font-bold"
-                style={{ color: "var(--text-head)" }}
+                key={s.val}
+                className="rounded-xl px-4 py-4"
+                style={{ background: "var(--card)", border: "1px solid var(--border)" }}
               >
-                15+
+                <div className="text-2xl font-bold mb-0.5" style={{ color: "var(--head)" }}>{s.val}</div>
+                <div className="text-xs" style={{ color: "var(--muted)" }}>{s.label}</div>
               </div>
-              <div
-                className="text-xs mt-1 leading-tight"
-                style={{ color: "var(--text-muted)" }}
-              >
-                Years in SaaS &amp; IT Ops
-              </div>
-            </div>
-            <div>
-              <div
-                className="text-3xl font-bold"
-                style={{ color: "var(--text-head)" }}
-              >
-                Full
-              </div>
-              <div
-                className="text-xs mt-1 leading-tight"
-                style={{ color: "var(--text-muted)" }}
-              >
-                Customer lifecycle ownership
-              </div>
-            </div>
-            <div>
-              <div
-                className="text-3xl font-bold"
-                style={{ color: "var(--text-head)" }}
-              >
-                GTM
-              </div>
-              <div
-                className="text-xs mt-1 leading-tight"
-                style={{ color: "var(--text-muted)" }}
-              >
-                to Support to Product
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 
-        {/* Right: 3D sphere */}
+        {/* RIGHT — Headshot */}
         <div className="hidden lg:flex items-center justify-center">
-          <div className="w-[420px] h-[420px] relative">
-            {/* Outer ring glow */}
+          <div className="relative float">
+            {/* Gradient ring */}
             <div
-              className="absolute inset-0 rounded-full"
-              style={{
-                background:
-                  "radial-gradient(circle at 50% 50%, rgba(59,130,246,0.06) 0%, transparent 70%)",
-              }}
+              className="absolute -inset-[3px] rounded-3xl"
+              style={{ background: "var(--grad)", opacity: 0.7 }}
             />
-            <WireframeSphere />
+            {/* Photo */}
+            <div className="relative rounded-3xl overflow-hidden w-[340px] h-[400px]">
+              <Image
+                src="/headshot.jpg"
+                alt="John Moffa"
+                fill
+                className="object-cover object-top"
+                priority
+              />
+              {/* Bottom gradient fade to dark */}
+              <div
+                className="absolute inset-x-0 bottom-0 h-32"
+                style={{
+                  background: "linear-gradient(to top, var(--bg) 0%, transparent 100%)",
+                }}
+              />
+            </div>
+
+            {/* Floating badge: Roam */}
+            <div
+              className="absolute -bottom-4 -left-6 px-4 py-2.5 rounded-xl text-sm font-semibold shadow-xl"
+              style={{ background: "var(--bg-2)", border: "1px solid var(--border)", color: "var(--head)" }}
+            >
+              🚀 Formerly at Roam
+            </div>
+
+            {/* Floating badge: NY */}
+            <div
+              className="absolute -top-4 -right-6 px-4 py-2.5 rounded-xl text-sm font-semibold shadow-xl"
+              style={{ background: "var(--bg-2)", border: "1px solid var(--border)", color: "var(--head)" }}
+            >
+              📍 New York
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Scroll cue */}
-      <div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1"
-        style={{ color: "var(--text-muted)" }}
-      >
-        <span className="text-xs tracking-widest uppercase">Scroll</span>
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          className="animate-bounce"
-          aria-hidden="true"
-        >
-          <path
-            d="M8 3v10M3 8l5 5 5-5"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+      {/* Mobile headshot */}
+      <div className="lg:hidden flex justify-center mb-8 -mt-8">
+        <div className="relative">
+          <div className="absolute -inset-[3px] rounded-full" style={{ background: "var(--grad)", opacity: 0.7 }} />
+          <div className="relative w-28 h-28 rounded-full overflow-hidden">
+            <Image src="/headshot.jpg" alt="John Moffa" fill className="object-cover object-top" priority />
+          </div>
+        </div>
       </div>
     </section>
   );
