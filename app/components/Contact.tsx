@@ -1,31 +1,46 @@
 export default function Contact() {
   return (
-    <section id="contact" className="bg-[#1e3a5f] py-20 px-6">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-6">
-          <span className="inline-block text-xs font-semibold tracking-widest text-blue-300 uppercase mb-3">
-            Get in touch
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
-            Let&apos;s talk
-          </h2>
-        </div>
+    <section
+      id="contact"
+      className="relative py-28 px-6 overflow-hidden"
+      style={{
+        background:
+          "radial-gradient(ellipse at 80% 50%, rgba(37,99,235,0.2) 0%, transparent 60%), #0f172a",
+      }}
+    >
+      {/* Grid overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage:
+            "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
+        }}
+      />
 
-        <p className="text-blue-100 text-base leading-relaxed max-w-2xl mb-10">
+      <div className="relative max-w-4xl mx-auto">
+        <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-blue-400 uppercase mb-6">
+          <span className="w-6 h-px bg-blue-400" />
+          Get in touch
+        </span>
+        <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-6 max-w-2xl">
+          Let&apos;s talk.
+        </h2>
+        <p className="text-slate-400 text-lg leading-relaxed max-w-xl mb-12">
           If you&apos;re hiring for a senior SaaS operator, customer operations
-          leader, solutions role, or need help cleaning up customer-facing
-          operations, I&apos;d be happy to connect.
+          leader, or solutions role — or need help cleaning up
+          customer-facing operations — I&apos;d be happy to connect.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4">
           <a
             href="mailto:moffajj@gmail.com"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md bg-white text-slate-900 font-medium text-sm hover:bg-blue-50 transition-colors"
+            className="group inline-flex items-center justify-center gap-3 px-8 py-4 rounded-lg bg-white text-slate-900 font-semibold text-sm hover:bg-blue-50 transition-colors"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
+              width="18"
+              height="18"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -43,12 +58,12 @@ export default function Contact() {
             href="https://www.linkedin.com/in/moffajj/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md border border-blue-400 text-white font-medium text-sm hover:bg-white/10 transition-colors"
+            className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-lg border border-slate-700 text-white font-semibold text-sm hover:border-blue-400 hover:text-blue-400 transition-colors"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
+              width="18"
+              height="18"
               viewBox="0 0 24 24"
               fill="currentColor"
               aria-hidden="true"

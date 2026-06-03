@@ -17,98 +17,107 @@ const yextTitles = [
   "IT Support Engineer",
 ];
 
+const jobs = [
+  {
+    role: "Director of Customer Operations & Solutions",
+    company: "Roam",
+    period: "2023 – 2026",
+    description:
+      "Led cross-functional customer operations, enterprise onboarding, technical implementation, and go-to-market initiatives. Worked closely with customers throughout the entire lifecycle—from initial demos and onboarding through rollout, support, adoption, and long-term success. Collaborated daily with Sales, Product, Engineering, Marketing, and Executive teams.",
+    tags: roamResponsibilities,
+    highlight: true,
+  },
+  {
+    role: "IT Operations & Project Leadership",
+    company: "Yext",
+    period: "10+ years",
+    description:
+      "Spent 10+ years in IT Operations, project leadership, systems support, and internal technology operations. Built a strong foundation in technical troubleshooting, internal systems, infrastructure, stakeholder management, process improvement, and operational execution.",
+    tags: yextTitles,
+    highlight: false,
+  },
+  {
+    role: "Co-Founder",
+    company: "",
+    period: "",
+    description:
+      "Built and operated a business with responsibility across operations, customer relationships, technology, and execution.",
+    tags: [],
+    highlight: false,
+  },
+];
+
 export default function Experience() {
   return (
-    <section id="experience" className="bg-slate-50 py-20 px-6">
+    <section id="experience" className="bg-slate-50 py-24 px-6">
       <div className="max-w-4xl mx-auto">
-        <div className="mb-12">
-          <span className="inline-block text-xs font-semibold tracking-widest text-[#1e3a5f] uppercase mb-3">
+        <div className="mb-14">
+          <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-blue-500 uppercase mb-4">
+            <span className="w-6 h-px bg-blue-500" />
             Work History
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tight">
             Experience
           </h2>
         </div>
 
-        <div className="space-y-10">
-          {/* Roam */}
-          <div className="bg-white rounded-lg border border-slate-200 p-7">
-            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
-              <div>
-                <h3 className="text-lg font-bold text-slate-900">
-                  Director of Customer Operations &amp; Solutions
-                </h3>
-                <p className="text-[#1e3a5f] font-semibold mt-0.5">Roam</p>
-              </div>
-              <span className="text-sm text-slate-500 font-medium shrink-0">
-                2023 – 2026
-              </span>
-            </div>
-            <p className="text-slate-600 text-sm leading-relaxed mb-5">
-              Led cross-functional customer operations, enterprise onboarding,
-              technical implementation, and go-to-market initiatives for Roam.
-              Worked closely with customers throughout the entire lifecycle—from
-              initial demos and onboarding through rollout, support, adoption,
-              and long-term success. Collaborated daily with Sales, Product,
-              Engineering, Marketing, and Executive teams to help customers
-              implement Roam effectively, solve technical and operational
-              challenges, improve internal processes, and support company growth
-              initiatives.
-            </p>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-1.5 gap-x-4">
-              {roamResponsibilities.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-start gap-2 text-sm text-slate-600"
-                >
-                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#1e3a5f] shrink-0" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
+        {/* Timeline */}
+        <div className="relative">
+          {/* Vertical line */}
+          <div className="absolute left-4 top-2 bottom-2 w-px bg-slate-200 hidden md:block" />
 
-          {/* Yext */}
-          <div className="bg-white rounded-lg border border-slate-200 p-7">
-            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
-              <div>
-                <h3 className="text-lg font-bold text-slate-900">
-                  IT Operations &amp; Project Leadership
-                </h3>
-                <p className="text-[#1e3a5f] font-semibold mt-0.5">Yext</p>
-              </div>
-              <span className="text-sm text-slate-500 font-medium shrink-0">
-                10+ years
-              </span>
-            </div>
-            <div className="flex flex-wrap gap-2 mb-4">
-              {yextTitles.map((title) => (
-                <span
-                  key={title}
-                  className="inline-block px-3 py-1 text-xs font-medium bg-slate-100 text-slate-700 rounded-full"
-                >
-                  {title}
-                </span>
-              ))}
-            </div>
-            <p className="text-slate-600 text-sm leading-relaxed">
-              Spent 10+ years in IT Operations, project leadership, systems
-              support, and internal technology operations. Built a strong
-              foundation in technical troubleshooting, internal systems,
-              infrastructure, stakeholder management, process improvement, and
-              operational execution.
-            </p>
-          </div>
+          <div className="space-y-8">
+            {jobs.map((job) => (
+              <div key={job.role} className="relative md:pl-14">
+                {/* Timeline dot */}
+                <div
+                  className={`absolute left-[9px] top-6 w-[11px] h-[11px] rounded-full border-2 hidden md:block ${
+                    job.highlight
+                      ? "border-blue-500 bg-blue-500"
+                      : "border-slate-400 bg-white"
+                  }`}
+                />
 
-          {/* Co-Founder */}
-          <div className="bg-white rounded-lg border border-slate-200 p-7">
-            <div className="mb-4">
-              <h3 className="text-lg font-bold text-slate-900">Co-Founder</h3>
-            </div>
-            <p className="text-slate-600 text-sm leading-relaxed">
-              Built and operated a business with responsibility across
-              operations, customer relationships, technology, and execution.
-            </p>
+                <div
+                  className={`bg-white rounded-xl border p-7 transition-all hover:shadow-md ${
+                    job.highlight ? "border-blue-200 shadow-sm" : "border-slate-200"
+                  }`}
+                >
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
+                    <div>
+                      <h3 className="text-lg font-bold text-slate-900">{job.role}</h3>
+                      {job.company && (
+                        <p className="text-blue-600 font-semibold text-sm mt-0.5">
+                          {job.company}
+                        </p>
+                      )}
+                    </div>
+                    {job.period && (
+                      <span className="text-xs font-semibold text-slate-400 bg-slate-100 px-3 py-1 rounded-full shrink-0 self-start">
+                        {job.period}
+                      </span>
+                    )}
+                  </div>
+
+                  <p className="text-slate-600 text-sm leading-relaxed mb-5">
+                    {job.description}
+                  </p>
+
+                  {job.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-2">
+                      {job.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="inline-block px-2.5 py-1 text-xs font-medium bg-slate-100 text-slate-600 rounded-md"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
