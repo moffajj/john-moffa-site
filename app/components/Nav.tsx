@@ -34,6 +34,7 @@ export default function Nav() {
         <div className="hidden sm:flex items-center gap-7 text-sm">
           {[
             { id: "what-i-do", label: "Expertise" },
+            { id: "podcast", label: "Podcast" },
             { id: "experience", label: "Experience" },
             { id: "consulting", label: "Consulting" },
           ].map(({ id, label }) => (

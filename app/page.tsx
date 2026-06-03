@@ -3,6 +3,7 @@ import Hero from "@/app/components/Hero";
 import Marquee from "@/app/components/Marquee";
 import WhatIDo from "@/app/components/WhatIDo";
 import About from "@/app/components/About";
+import Podcast from "@/app/components/Podcast";
 import Experience from "@/app/components/Experience";
 import BestFit from "@/app/components/BestFit";
 import Consulting from "@/app/components/Consulting";
@@ -17,6 +18,7 @@ export default function Home() {
         <Marquee />
         <WhatIDo />
         <About />
+        <Podcast />
         <Experience />
         <BestFit />
         <Consulting />
