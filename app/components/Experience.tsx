@@ -1,11 +1,14 @@
 "use client";
 
+import Image from "next/image";
 import { useReveal } from "@/app/hooks/useReveal";
 
 const jobs = [
   {
     role: "Director of Customer Operations & Solutions",
     company: "Roam",
+    logo: "/logo-roam.png",
+    logoBg: "transparent",
     period: "2023 – 2026",
     type: "SaaS · Remote Collaboration",
     description:
@@ -26,6 +29,8 @@ const jobs = [
   {
     role: "IT Operations & Project Leadership",
     company: "Yext",
+    logo: "/logo-yext.png",
+    logoBg: "#000",
     period: "10+ years",
     type: "Enterprise SaaS",
     description:
@@ -35,7 +40,9 @@ const jobs = [
   },
   {
     role: "Co-Founder",
-    company: "",
+    company: "Imagine Events",
+    logo: "/logo-imagine.jpg",
+    logoBg: "#000",
     period: "",
     type: "Entrepreneurship",
     description:
@@ -76,17 +83,27 @@ export default function Experience() {
               style={{ borderColor: "var(--border)" }}
             >
               {/* Left: meta */}
-              <div className="lg:col-span-3">
-                {job.company && (
+              <div className="lg:col-span-3 flex flex-col gap-3">
+                {job.logo && (
                   <div
-                    className="text-lg font-bold mb-1"
-                    style={{ color: "var(--blue-2)" }}
+                    className="relative w-16 h-16 rounded-xl overflow-hidden shrink-0"
+                    style={{ background: job.logoBg, border: "1px solid var(--border)" }}
                   >
+                    <Image
+                      src={job.logo}
+                      alt={job.company}
+                      fill
+                      className="object-contain p-2"
+                    />
+                  </div>
+                )}
+                {job.company && (
+                  <div className="text-sm font-bold" style={{ color: "var(--head)" }}>
                     {job.company}
                   </div>
                 )}
                 {job.period && (
-                  <div className="text-sm mb-1" style={{ color: "var(--muted)" }}>{job.period}</div>
+                  <div className="text-sm" style={{ color: "var(--muted)" }}>{job.period}</div>
                 )}
                 <div className="text-xs" style={{ color: "var(--muted)" }}>{job.type}</div>
               </div>
