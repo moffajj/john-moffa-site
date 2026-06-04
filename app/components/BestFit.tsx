@@ -1,59 +1,60 @@
 "use client";
 
+import { useReveal } from "@/app/hooks/useReveal";
+
 const roles = [
-  { title: "Director of Customer Operations", hot: true },
-  { title: "Head of Customer Operations", hot: true },
-  { title: "Director of Customer Experience & Operations", hot: false },
-  { title: "Director of Enterprise Solutions", hot: true },
-  { title: "Technical Customer Operations", hot: false },
-  { title: "GTM Operations", hot: false },
-  { title: "Solutions Consulting", hot: false },
-  { title: "Implementation Leadership", hot: false },
-  { title: "SaaS Operations", hot: false },
-  { title: "Fractional Customer Operations", hot: false },
+  "Director of Customer Operations",
+  "Head of Customer Operations",
+  "Director of Customer Experience & Operations",
+  "Director of Enterprise Solutions",
+  "Technical Customer Operations",
+  "GTM Operations",
+  "Solutions Consulting",
+  "Implementation Leadership",
+  "SaaS Operations",
+  "Fractional Customer Operations",
 ];
 
 export default function BestFit() {
+  const ref = useReveal();
+
   return (
-    <section id="best-fit" className="py-24 px-6" style={{ background: "var(--bg-2)" }}>
-      <div className="max-w-6xl mx-auto">
-        <div className="mb-14">
-          <span className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase mb-4" style={{ color: "var(--blue)" }}>
-            <span className="w-6 h-px" style={{ background: "var(--blue)" }} />
-            Job search
-          </span>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight" style={{ color: "var(--head)" }}>
+    <section
+      id="best-fit"
+      ref={ref as React.RefObject<HTMLElement>}
+      className="py-32 px-8"
+      style={{ background: "var(--bg)" }}
+    >
+      <div className="max-w-7xl mx-auto">
+        <div className="reveal mb-16 max-w-xl">
+          <p className="text-xs font-bold tracking-widest uppercase mb-5" style={{ color: "var(--blue-2)" }}>
+            Open to
+          </p>
+          <h2
+            className="font-bold tracking-tight"
+            style={{ color: "var(--head)", fontSize: "clamp(2.5rem, 5vw, 4rem)", letterSpacing: "-0.02em" }}
+          >
             Where I fit best
           </h2>
         </div>
 
-        <div className="flex flex-wrap gap-3 mb-10">
+        <div className="reveal d1 flex flex-wrap gap-3 mb-12">
           {roles.map((role) => (
-            <div
-              key={role.title}
-              className="group relative inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold cursor-default transition-all duration-200 hover:scale-105"
-              style={{
-                background: role.hot ? "rgba(99,102,241,0.12)" : "var(--card)",
-                border: role.hot ? "1px solid rgba(99,102,241,0.3)" : "1px solid var(--border)",
-                color: role.hot ? "#a5b4fc" : "var(--head)",
-              }}
+            <span
+              key={role}
+              className="text-sm font-medium px-5 py-2.5 rounded-full transition-all duration-200 hover:bg-white hover:text-black cursor-default"
+              style={{ border: "1px solid var(--border)", color: "var(--head)" }}
             >
-              {role.hot && (
-                <span
-                  className="w-1.5 h-1.5 rounded-full shrink-0"
-                  style={{ background: "#818cf8" }}
-                />
-              )}
-              {role.title}
-            </div>
+              {role}
+            </span>
           ))}
         </div>
 
         <p
-          className="text-base leading-relaxed max-w-2xl pl-5 italic"
-          style={{ color: "var(--body)", borderLeft: "3px solid var(--blue)" }}
+          className="reveal d2 text-lg leading-relaxed max-w-2xl"
+          style={{ color: "var(--body)", borderLeft: "2px solid var(--blue)", paddingLeft: "1.25rem" }}
         >
-          I&apos;m most interested in SaaS companies where customer experience, implementation, product feedback, and operational execution are tightly connected.
+          Most interested in SaaS companies where customer experience, implementation, product feedback, and operational execution are tightly connected.
         </p>
       </div>
     </section>

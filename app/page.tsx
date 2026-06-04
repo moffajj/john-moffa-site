@@ -7,6 +7,7 @@ import Podcast from "@/app/components/Podcast";
 import Experience from "@/app/components/Experience";
 import BestFit from "@/app/components/BestFit";
 import Consulting from "@/app/components/Consulting";
+import Hobbies from "@/app/components/Hobbies";
 import Contact from "@/app/components/Contact";
 
 export default function Home() {
@@ -22,18 +23,19 @@ export default function Home() {
         <Experience />
         <BestFit />
         <Consulting />
+        <Hobbies />
         <Contact />
       </main>
       <footer
-        className="py-6 px-6"
+        className="py-8 px-8"
         style={{ borderTop: "1px solid var(--border)", background: "var(--bg)" }}
       >
         <div
-          className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-sm"
+          className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs"
           style={{ color: "var(--muted)" }}
         >
           <span>© {new Date().getFullYear()} John Moffa</span>
-          <span>Customer Operations &amp; Solutions Leader</span>
+          <span>Customer Operations &amp; Solutions Leader · New York</span>
         </div>
       </footer>
     </>

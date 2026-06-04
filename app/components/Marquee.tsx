@@ -13,23 +13,25 @@ const items = [
   "Cross-Functional Leadership",
   "Customer Enablement",
   "Process Improvement",
-  "Adoption Strategy",
 ];
 
 export default function Marquee() {
   const doubled = [...items, ...items];
   return (
     <div
-      className="py-5 overflow-hidden border-y"
-      style={{ borderColor: "var(--border)", background: "var(--bg-2)" }}
+      className="py-4 overflow-hidden border-y select-none"
+      style={{ borderColor: "var(--border)", background: "var(--bg-1)" }}
     >
-      <div className="marquee-track select-none">
+      <div className="marquee-track">
         {doubled.map((item, i) => (
-          <span key={i} className="inline-flex items-center gap-4 px-6">
-            <span className="text-sm font-semibold tracking-wide whitespace-nowrap" style={{ color: "var(--body)" }}>
+          <span key={i} className="inline-flex items-center gap-5 px-5">
+            <span
+              className="text-xs font-semibold tracking-widest uppercase whitespace-nowrap"
+              style={{ color: "var(--muted)" }}
+            >
               {item}
             </span>
-            <span className="w-1 h-1 rounded-full shrink-0" style={{ background: "var(--blue)" }} />
+            <span className="w-1 h-1 rounded-full shrink-0" style={{ background: "var(--muted)" }} />
           </span>
         ))}
       </div>

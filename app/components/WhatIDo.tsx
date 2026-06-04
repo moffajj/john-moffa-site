@@ -1,88 +1,75 @@
-import TiltCard from "./TiltCard";
+"use client";
 
-const cards = [
+import { useReveal } from "@/app/hooks/useReveal";
+
+const areas = [
   {
-    id: "ops",
-    label: "01",
+    num: "01",
     title: "Customer Operations",
-    description: "Building the systems, processes, and communication loops that move customers from interest to adoption — without the chaos.",
-    span: "lg:col-span-2",
-    accent: "#3b82f6",
+    body: "Building the systems, processes, and communication loops that move customers from interest to adoption — without the chaos.",
   },
   {
-    id: "gtm",
-    label: "02",
-    title: "GTM & Cross-Functional Execution",
-    description: "Partnering with Sales, Marketing, Product, and Engineering to support demos, launches, feedback loops, and growth.",
-    span: "lg:col-span-1 lg:row-span-2",
-    accent: "#7c3aed",
-  },
-  {
-    id: "onboard",
-    label: "03",
+    num: "02",
     title: "Enterprise Onboarding & Implementation",
-    description: "Designing rollout plans, training flows, and stakeholder alignment that help teams get value faster.",
-    span: "lg:col-span-1",
-    accent: "#2563eb",
+    body: "Rollout plans, training flows, and stakeholder alignment that help teams get value faster.",
   },
   {
-    id: "tech",
-    label: "04",
+    num: "03",
     title: "Technical Solutions & Support",
-    description: "Bridging customers, product, and engineering to solve technical problems and reduce friction.",
-    span: "lg:col-span-1",
-    accent: "#6d28d9",
+    body: "Bridging customers, product, and engineering to solve technical problems and reduce friction.",
+  },
+  {
+    num: "04",
+    title: "GTM & Cross-Functional Execution",
+    body: "Partnering with Sales, Marketing, Product, and Engineering to support demos, launches, feedback loops, and growth.",
   },
 ];
 
 export default function WhatIDo() {
+  const ref = useReveal();
+
   return (
-    <section id="what-i-do" className="py-24 px-6" style={{ background: "var(--bg)" }}>
-      <div className="max-w-6xl mx-auto">
-        <div className="mb-14">
-          <span className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase mb-4" style={{ color: "var(--blue)" }}>
-            <span className="w-6 h-px" style={{ background: "var(--blue)" }} />
+    <section
+      id="work"
+      ref={ref as React.RefObject<HTMLElement>}
+      className="py-32 px-8"
+      style={{ background: "var(--bg)" }}
+    >
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="reveal mb-20 max-w-xl">
+          <p className="text-xs font-bold tracking-widest uppercase mb-5" style={{ color: "var(--blue-2)" }}>
             What I do
-          </span>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight" style={{ color: "var(--head)" }}>
+          </p>
+          <h2
+            className="font-bold tracking-tight leading-[1.05]"
+            style={{ color: "var(--head)", fontSize: "clamp(2.5rem, 5vw, 4rem)", letterSpacing: "-0.02em" }}
+          >
             Where I create value
           </h2>
         </div>
 
-        {/* Bento grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          {cards.map((card) => (
-            <TiltCard
-              key={card.id}
-              className={`group relative rounded-2xl p-7 overflow-hidden cursor-default ${card.span}`}
-              style={{ background: "var(--card)", border: "1px solid var(--border)" }}
+        {/* Four areas — editorial layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-px" style={{ background: "var(--border)" }}>
+          {areas.map((a, i) => (
+            <div
+              key={a.num}
+              className={`reveal d${i + 1} group p-10 transition-colors duration-300 hover:bg-white/[0.03]`}
+              style={{ background: "var(--bg)" }}
             >
-              {/* Top accent gradient line */}
-              <div
-                className="absolute top-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{ background: `linear-gradient(90deg, ${card.accent}, transparent)` }}
-              />
-              {/* Hover glow */}
-              <div
-                className="absolute -top-20 -left-20 w-64 h-64 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                style={{ background: `radial-gradient(circle, ${card.accent}18 0%, transparent 70%)` }}
-              />
-
-              <div className="relative h-full flex flex-col">
-                <div className="text-xs font-bold tracking-widest mb-4" style={{ color: card.accent }}>
-                  {card.label}
-                </div>
-                <h3
-                  className="text-xl font-bold mb-3 group-hover:text-white transition-colors"
-                  style={{ color: "var(--head)" }}
-                >
-                  {card.title}
-                </h3>
-                <p className="text-sm leading-relaxed mt-auto" style={{ color: "var(--body)" }}>
-                  {card.description}
-                </p>
-              </div>
-            </TiltCard>
+              <span className="text-xs font-bold tracking-widest mb-6 block" style={{ color: "var(--muted)" }}>
+                {a.num}
+              </span>
+              <h3
+                className="text-2xl font-bold mb-4 group-hover:text-white transition-colors duration-200"
+                style={{ color: "var(--head)", letterSpacing: "-0.01em" }}
+              >
+                {a.title}
+              </h3>
+              <p className="text-base leading-relaxed" style={{ color: "var(--body)" }}>
+                {a.body}
+              </p>
+            </div>
           ))}
         </div>
       </div>

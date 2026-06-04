@@ -1,77 +1,87 @@
-import Image from "next/image";
+"use client";
 
-const facts = [
-  { emoji: "📍", label: "Based in", value: "New York" },
-  { emoji: "💼", label: "Last role", value: "Roam" },
-  { emoji: "🏗️", label: "Before that", value: "Yext, 10+ years" },
-  { emoji: "🎯", label: "Best at", value: "The messy middle" },
-  { emoji: "🤝", label: "Open to", value: "Full-time & Consulting" },
-];
+import Image from "next/image";
+import { useReveal } from "@/app/hooks/useReveal";
 
 export default function About() {
-  return (
-    <section id="about" className="py-24 px-6" style={{ background: "var(--bg-2)" }}>
-      <div className="max-w-6xl mx-auto">
-        <div className="mb-14">
-          <span className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase mb-4" style={{ color: "var(--blue)" }}>
-            <span className="w-6 h-px" style={{ background: "var(--blue)" }} />
-            The story
-          </span>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight" style={{ color: "var(--head)" }}>
-            About me
-          </h2>
-        </div>
+  const ref = useReveal();
 
-        <div className="grid lg:grid-cols-3 gap-8 items-start">
-          {/* Photo */}
-          <div className="lg:col-span-1 flex justify-center lg:justify-start">
-            <div className="relative w-64 lg:w-full max-w-xs">
+  return (
+    <section
+      id="about"
+      ref={ref as React.RefObject<HTMLElement>}
+      className="py-32 px-8 overflow-hidden"
+      style={{ background: "var(--bg-1)" }}
+    >
+      <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
+        {/* Left — photo */}
+        <div className="reveal-scale relative">
+          <div className="relative aspect-[3/4] w-full max-w-md mx-auto lg:mx-0 rounded-2xl overflow-hidden">
+            <Image
+              src="/headshot.jpg"
+              alt="John Moffa"
+              fill
+              className="object-cover object-top"
+            />
+            <div
+              className="absolute inset-0"
+              style={{
+                background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%)",
+              }}
+            />
+            {/* Caption */}
+            <div className="absolute bottom-6 left-6 right-6">
               <div
-                className="absolute -inset-[2px] rounded-2xl opacity-50"
-                style={{ background: "var(--grad)" }}
-              />
-              <div className="relative rounded-2xl overflow-hidden aspect-square">
-                <Image
-                  src="/headshot.jpg"
-                  alt="John Moffa"
-                  fill
-                  className="object-cover object-top"
-                />
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium"
+                style={{ background: "rgba(0,0,0,0.6)", backdropFilter: "blur(12px)", color: "var(--head)", border: "1px solid var(--border)" }}
+              >
+                <span className="pulse-dot w-2 h-2 rounded-full bg-emerald-400" />
+                Available now
               </div>
             </div>
           </div>
+        </div>
 
-          {/* Text */}
-          <div className="lg:col-span-2 space-y-5 text-base leading-relaxed" style={{ color: "var(--body)" }}>
-            <p className="text-xl font-semibold italic" style={{ color: "var(--head)" }}>
-              &ldquo;I&apos;ve spent my career in the messy middle between customers, technical teams, and business operations.&rdquo;
+        {/* Right — text */}
+        <div>
+          <p className="reveal text-xs font-bold tracking-widest uppercase mb-6" style={{ color: "var(--blue-2)" }}>
+            The story
+          </p>
+          <h2
+            className="reveal d1 font-bold tracking-tight leading-tight mb-10"
+            style={{ color: "var(--head)", fontSize: "clamp(2rem, 4vw, 3rem)", letterSpacing: "-0.02em" }}
+          >
+            I work in the messy middle.
+          </h2>
+          <div className="reveal d2 space-y-5 text-base leading-relaxed" style={{ color: "var(--body)" }}>
+            <p>
+              At Roam, my job was to be the connective tissue between customers, product, engineering, and the business. Onboarding, support, implementation, feedback loops, GTM — it all ran through me. Broad by design.
             </p>
             <p>
-              At Roam, I worked across customer operations, onboarding, support, technical implementation, product feedback, sales support, and go-to-market execution. My role was broad by design: help customers get implemented successfully, solve real problems, and make sure the right feedback made it back to the team.
+              Before that, 10+ years at Yext building IT Operations from the ground up. Started as a support engineer, left as Head of IT Operations. I know what it actually takes to make a company run.
             </p>
             <p>
-              Before Roam, I spent over a decade in IT Operations and project leadership at Yext — which gave me a technical foundation and a ground-level understanding of how companies actually work, not just how they look on paper.
+              I&apos;m at my best when there&apos;s no clean org chart answer. Give me a complex customer problem, a cross-functional mess, or an operational gap — I&apos;ll figure it out.
             </p>
-            <p>
-              I&apos;m at my best when the job isn&apos;t neatly boxed into one department. I connect the dots between customers, product, process, and execution.
-            </p>
+          </div>
 
-            {/* Fact strip */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4">
-              {facts.map((f) => (
-                <div
-                  key={f.label}
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl"
-                  style={{ background: "var(--card)", border: "1px solid var(--border)" }}
-                >
-                  <span className="text-xl">{f.emoji}</span>
-                  <div>
-                    <div className="text-xs" style={{ color: "var(--muted)" }}>{f.label}</div>
-                    <div className="text-sm font-semibold" style={{ color: "var(--head)" }}>{f.value}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
+          {/* Quick facts */}
+          <div className="reveal d3 mt-10 grid grid-cols-2 gap-3">
+            {[
+              { label: "Based in", val: "New York" },
+              { label: "Last role", val: "Roam" },
+              { label: "Before that", val: "Yext, 10+ yrs" },
+              { label: "Open to", val: "Full-time + Consulting" },
+            ].map((f) => (
+              <div
+                key={f.label}
+                className="px-4 py-3 rounded-xl"
+                style={{ background: "var(--card)", border: "1px solid var(--border)" }}
+              >
+                <div className="text-xs mb-1" style={{ color: "var(--muted)" }}>{f.label}</div>
+                <div className="text-sm font-semibold" style={{ color: "var(--head)" }}>{f.val}</div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

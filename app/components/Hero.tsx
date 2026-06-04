@@ -6,152 +6,116 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col justify-center px-6 overflow-hidden"
+      className="relative min-h-screen flex flex-col justify-end overflow-hidden"
       style={{ background: "var(--bg)" }}
     >
-      {/* Background glow */}
-      <div
-        className="absolute top-0 right-0 w-[700px] h-[700px] rounded-full pointer-events-none opacity-20"
-        style={{
-          background: "radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 65%)",
-          transform: "translate(30%, -20%)",
-        }}
-      />
-      <div
-        className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full pointer-events-none opacity-10"
-        style={{
-          background: "radial-gradient(circle, rgba(99,102,241,0.2) 0%, transparent 65%)",
-          transform: "translate(-30%, 20%)",
-        }}
-      />
+      {/* Full bleed photo — right side, fading into black */}
+      <div className="absolute inset-0">
+        <div className="absolute right-0 top-0 h-full w-full lg:w-[65%]">
+          <Image
+            src="/headshot.jpg"
+            alt="John Moffa"
+            fill
+            className="object-cover object-top"
+            priority
+          />
+          {/* Fade left */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background: "linear-gradient(to right, #000 0%, #000 20%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0.2) 70%, transparent 100%)",
+            }}
+          />
+          {/* Fade bottom */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background: "linear-gradient(to top, #000 0%, rgba(0,0,0,0.7) 30%, transparent 60%)",
+            }}
+          />
+        </div>
+        {/* Full overlay on mobile */}
+        <div
+          className="absolute inset-0 lg:hidden"
+          style={{ background: "rgba(0,0,0,0.7)" }}
+        />
+      </div>
 
-      <div className="relative max-w-6xl mx-auto w-full py-28 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        {/* LEFT — Text */}
-        <div>
-          {/* Status badge */}
-          <div className="fade-up d1 inline-flex items-center gap-2.5 px-4 py-2 rounded-full mb-8 text-sm font-medium"
-            style={{ background: "var(--card)", border: "1px solid var(--border)", color: "var(--head)" }}
-          >
+      {/* Content */}
+      <div className="relative max-w-7xl mx-auto px-8 pb-20 pt-36 w-full">
+        <div className="max-w-2xl">
+          {/* Status */}
+          <div className="hero-fade hd1 inline-flex items-center gap-2 mb-8">
             <span className="pulse-dot w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
-            Available for new opportunities
+            <span className="text-sm" style={{ color: "var(--body)" }}>
+              Available for new opportunities
+            </span>
           </div>
 
+          {/* Name */}
           <h1
-            className="fade-up d2 font-bold leading-[1.05] tracking-tight mb-6"
-            style={{ color: "var(--head)", fontSize: "clamp(2.5rem, 5vw, 3.75rem)" }}
+            className="hero-fade hd2 font-bold tracking-tight leading-[1] mb-6"
+            style={{
+              color: "var(--head)",
+              fontSize: "clamp(3.5rem, 9vw, 8rem)",
+              letterSpacing: "-0.03em",
+            }}
           >
-            Hi, I&apos;m{" "}
-            <span
-              style={{
-                background: "var(--grad)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              John Moffa.
-            </span>
-            <br />
-            I run customer ops.
+            John<br />Moffa.
           </h1>
 
-          <p className="fade-up d3 text-lg leading-relaxed mb-4 max-w-lg" style={{ color: "var(--body)" }}>
-            15+ years helping SaaS companies turn customer complexity into operational clarity — across onboarding, implementation, support, and go-to-market.
+          {/* Role */}
+          <p
+            className="hero-fade hd3 font-medium mb-4"
+            style={{
+              color: "var(--body)",
+              fontSize: "clamp(1rem, 2vw, 1.25rem)",
+              letterSpacing: "0.05em",
+              textTransform: "uppercase",
+            }}
+          >
+            Customer Operations & Solutions Leader
           </p>
 
-          <p className="fade-up d3 text-sm mb-10" style={{ color: "var(--muted)" }}>
-            Formerly at <span style={{ color: "var(--body)" }}>Roam</span> &nbsp;·&nbsp; Previously{" "}
-            <span style={{ color: "var(--body)" }}>Head of IT Ops at Yext</span>
+          {/* Line */}
+          <p
+            className="hero-fade hd4 mb-10 max-w-lg"
+            style={{ color: "var(--body)", fontSize: "1.1rem", lineHeight: 1.7 }}
+          >
+            15+ years helping SaaS companies turn customer complexity into operational clarity.
           </p>
 
-          <div className="fade-up d4 flex flex-col sm:flex-row gap-3 mb-12">
+          {/* CTAs */}
+          <div className="hero-fade hd5 flex flex-wrap gap-3">
             <a
-              href="#experience"
-              className="inline-flex items-center justify-center px-7 py-3.5 rounded-xl text-white font-semibold text-sm transition-all hover:opacity-90 hover:scale-105"
-              style={{ background: "var(--grad)" }}
+              href="#work"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-semibold transition-all duration-200 hover:bg-white hover:text-black"
+              style={{ background: "var(--blue)", color: "#fff" }}
             >
-              View Experience
+              See my work
             </a>
             <a
               href="#contact"
-              className="inline-flex items-center justify-center px-7 py-3.5 rounded-xl font-semibold text-sm transition-all hover:scale-105"
-              style={{ background: "var(--card)", border: "1px solid var(--border)", color: "var(--head)" }}
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-semibold transition-all duration-200 hover:bg-white hover:text-black"
+              style={{ border: "1px solid rgba(255,255,255,0.2)", color: "var(--head)" }}
             >
-              Let&apos;s Talk
+              Let&apos;s talk
             </a>
-          </div>
-
-          {/* Quick stats */}
-          <div className="fade-up d5 grid grid-cols-3 gap-4">
-            {[
-              { val: "15+", label: "Years in tech" },
-              { val: "Full", label: "Customer lifecycle" },
-              { val: "GTM→", label: "Support to product" },
-            ].map((s) => (
-              <div
-                key={s.val}
-                className="rounded-xl px-4 py-4"
-                style={{ background: "var(--card)", border: "1px solid var(--border)" }}
-              >
-                <div className="text-2xl font-bold mb-0.5" style={{ color: "var(--head)" }}>{s.val}</div>
-                <div className="text-xs" style={{ color: "var(--muted)" }}>{s.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* RIGHT — Headshot */}
-        <div className="hidden lg:flex items-center justify-center">
-          <div className="relative float">
-            {/* Gradient ring */}
-            <div
-              className="absolute -inset-[3px] rounded-3xl"
-              style={{ background: "var(--grad)", opacity: 0.7 }}
-            />
-            {/* Photo */}
-            <div className="relative rounded-3xl overflow-hidden w-[340px] h-[400px]">
-              <Image
-                src="/headshot.jpg"
-                alt="John Moffa"
-                fill
-                className="object-cover object-top"
-                priority
-              />
-              {/* Bottom gradient fade to dark */}
-              <div
-                className="absolute inset-x-0 bottom-0 h-32"
-                style={{
-                  background: "linear-gradient(to top, var(--bg) 0%, transparent 100%)",
-                }}
-              />
-            </div>
-
-            {/* Floating badge: Roam */}
-            <div
-              className="absolute -bottom-4 -left-6 px-4 py-2.5 rounded-xl text-sm font-semibold shadow-xl"
-              style={{ background: "var(--bg-2)", border: "1px solid var(--border)", color: "var(--head)" }}
-            >
-              🚀 Formerly at Roam
-            </div>
-
-            {/* Floating badge: NY */}
-            <div
-              className="absolute -top-4 -right-6 px-4 py-2.5 rounded-xl text-sm font-semibold shadow-xl"
-              style={{ background: "var(--bg-2)", border: "1px solid var(--border)", color: "var(--head)" }}
-            >
-              📍 New York
-            </div>
           </div>
         </div>
       </div>
 
-      {/* Mobile headshot */}
-      <div className="lg:hidden flex justify-center mb-8 -mt-8">
-        <div className="relative">
-          <div className="absolute -inset-[3px] rounded-full" style={{ background: "var(--grad)", opacity: 0.7 }} />
-          <div className="relative w-28 h-28 rounded-full overflow-hidden">
-            <Image src="/headshot.jpg" alt="John Moffa" fill className="object-cover object-top" priority />
-          </div>
-        </div>
+      {/* Scroll cue */}
+      <div className="absolute bottom-8 right-8 hidden lg:flex flex-col items-center gap-2" style={{ color: "var(--muted)" }}>
+        <div
+          className="w-px h-16"
+          style={{
+            background: "linear-gradient(to bottom, transparent, var(--muted))",
+          }}
+        />
+        <span className="text-xs tracking-widest uppercase" style={{ writingMode: "vertical-rl" }}>
+          Scroll
+        </span>
       </div>
     </section>
   );
