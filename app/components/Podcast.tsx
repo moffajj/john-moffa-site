@@ -6,7 +6,7 @@ import { useReveal } from "@/app/hooks/useReveal";
 const externalLinks = [
   {
     label: "YouTube",
-    href: "https://www.youtube.com/watch?v=uR1PtTcLJRM&list=PLEt5wUKzPMJHWG6V_1YgGx3wpuA4iFThm",
+    href: "https://www.youtube.com/playlist?list=PLEt5wUKzPMJHWG6V_1YgGx3wpuA4iFThm",
     color: "#ff4444",
     bg: "rgba(255,68,68,0.1)",
     border: "rgba(255,68,68,0.2)",
