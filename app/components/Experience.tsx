@@ -10,7 +10,7 @@ const jobs = [
     logo: "/logo-roam.png",
     logoBg: "transparent",
     period: "2023 – 2026",
-    type: "SaaS · Remote Collaboration",
+    type: "SaaS · Virtual Office Platform",
     description:
       "Led cross-functional customer operations, enterprise onboarding, technical implementation, and go-to-market for a high-growth remote collaboration platform. Worked the full customer lifecycle — demos, onboarding, rollout, support, adoption — while collaborating daily with Sales, Product, Engineering, and Marketing.",
     tags: [
