@@ -1,6 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import dynamic from "next/dynamic";
+
+const HeroShape = dynamic(() => import("./HeroShape"), { ssr: false });
 
 export default function Hero() {
   return (
@@ -151,6 +154,9 @@ export default function Hero() {
 
         </div>
       </div>
+
+      {/* Three.js shape — full section canvas, pointer-events none */}
+      <HeroShape />
 
       {/* Spin keyframe inline */}
       <style>{`@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>

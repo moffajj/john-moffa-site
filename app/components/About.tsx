@@ -1,10 +1,36 @@
 "use client";
 
 import Image from "next/image";
+import { useRef } from "react";
 import { useReveal } from "@/app/hooks/useReveal";
 
 export default function About() {
   const ref = useReveal();
+  const cardRef = useRef<HTMLDivElement>(null);
+  const glareRef = useRef<HTMLDivElement>(null);
+
+  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = cardRef.current;
+    const glare = glareRef.current;
+    if (!card || !glare) return;
+    const rect = card.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;  // -0.5 to 0.5
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    const rotX = -y * 14;
+    const rotY = x * 14;
+    card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.02)`;
+    // Specular highlight moves opposite to tilt
+    glare.style.opacity = "1";
+    glare.style.background = `radial-gradient(circle at ${50 - x * 80}% ${50 - y * 80}%, rgba(255,255,255,0.12) 0%, transparent 65%)`;
+  };
+
+  const onMouseLeave = () => {
+    const card = cardRef.current;
+    const glare = glareRef.current;
+    if (!card || !glare) return;
+    card.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg) scale(1)";
+    glare.style.opacity = "0";
+  };
 
   return (
     <section
@@ -14,9 +40,19 @@ export default function About() {
       style={{ background: "var(--bg-1)" }}
     >
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
-        {/* Left — photo */}
-        <div className="reveal-scale relative">
-          <div className="relative aspect-[3/4] w-full max-w-md mx-auto lg:mx-0 rounded-2xl overflow-hidden">
+        {/* Left — photo with 3D tilt */}
+        <div className="reveal-scale relative flex justify-center lg:justify-start">
+          <div
+            ref={cardRef}
+            onMouseMove={onMouseMove}
+            onMouseLeave={onMouseLeave}
+            className="relative aspect-[3/4] w-full max-w-md rounded-2xl overflow-hidden cursor-default"
+            style={{
+              transition: "transform 0.15s cubic-bezier(0.23,1,0.32,1)",
+              willChange: "transform",
+              transformStyle: "preserve-3d",
+            }}
+          >
             <Image
               src="/headshot.jpg"
               alt="John Moffa"
@@ -27,6 +63,16 @@ export default function About() {
               className="absolute inset-0"
               style={{
                 background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%)",
+              }}
+            />
+            {/* Specular highlight overlay */}
+            <div
+              ref={glareRef}
+              className="absolute inset-0 rounded-2xl pointer-events-none"
+              style={{
+                opacity: 0,
+                transition: "opacity 0.2s ease",
+                mixBlendMode: "screen",
               }}
             />
             {/* Caption */}
