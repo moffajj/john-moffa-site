@@ -1,9 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import dynamic from "next/dynamic";
-
-const HeroShape = dynamic(() => import("./HeroShape"), { ssr: false });
 
 export default function Hero() {
   return (
@@ -21,8 +18,7 @@ export default function Hero() {
       />
 
       <div className="relative max-w-7xl mx-auto px-8 w-full py-32">
-        {/* 3-col on desktop: text | shape | headshot */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px_1fr] gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
           {/* COL 1 — Text */}
           <div>
@@ -76,12 +72,7 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* COL 2 — 3D icosahedron (desktop only) */}
-          <div className="hidden lg:flex items-center justify-center" style={{ height: 280 }}>
-            <HeroShape />
-          </div>
-
-          {/* COL 3 — Headshot */}
+          {/* COL 2 — Headshot */}
           <div className="flex items-center justify-center lg:justify-end">
             <div
               className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden"
