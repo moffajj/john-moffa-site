@@ -1,6 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import dynamic from "next/dynamic";
+
+const HeroShape = dynamic(() => import("./HeroShape"), { ssr: false });
 
 export default function Hero() {
   return (
@@ -9,18 +12,19 @@ export default function Hero() {
       className="relative min-h-screen flex flex-col justify-center overflow-hidden"
       style={{ background: "var(--bg)" }}
     >
-      {/* Subtle background grain/glow */}
+      {/* Ambient glow */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse at 60% 40%, rgba(0,113,227,0.06) 0%, transparent 60%)",
+          background: "radial-gradient(ellipse at 50% 40%, rgba(201,168,76,0.04) 0%, transparent 60%)",
         }}
       />
 
       <div className="relative max-w-7xl mx-auto px-8 w-full py-32">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        {/* 3-col on desktop: text | shape | headshot */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px_1fr] gap-8 items-center">
 
-          {/* LEFT — Text */}
+          {/* COL 1 — Text */}
           <div>
             <div className="hero-fade hd1 inline-flex items-center gap-2 mb-8">
               <span className="pulse-dot w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
@@ -33,7 +37,7 @@ export default function Hero() {
               className="hero-fade hd2 font-bold tracking-tight leading-[1.02] mb-6"
               style={{
                 color: "var(--head)",
-                fontSize: "clamp(3rem, 7vw, 6rem)",
+                fontSize: "clamp(2.8rem, 5.5vw, 5.5rem)",
                 letterSpacing: "-0.03em",
               }}
             >
@@ -58,7 +62,7 @@ export default function Hero() {
               <a
                 href="#work"
                 className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-semibold transition-all duration-200 hover:opacity-80"
-                style={{ background: "var(--blue)", color: "#fff" }}
+                style={{ background: "#c9a84c", color: "#000" }}
               >
                 See my work
               </a>
@@ -72,88 +76,32 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* RIGHT — Headshot in graphic circle */}
-          <div className="flex items-center justify-center">
-            <div className="relative w-72 h-72 md:w-96 md:h-96">
+          {/* COL 2 — 3D icosahedron (desktop only) */}
+          <div className="hidden lg:flex items-center justify-center" style={{ height: 280 }}>
+            <HeroShape />
+          </div>
 
-              {/* Outer rotating dashed ring */}
-              <div
-                className="absolute inset-0 rounded-full"
-                style={{
-                  border: "1px dashed rgba(255,255,255,0.1)",
-                  animation: "spin 20s linear infinite",
-                }}
+          {/* COL 3 — Headshot */}
+          <div className="flex items-center justify-center lg:justify-end">
+            <div
+              className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden"
+              style={{
+                border: "1.5px solid rgba(201,168,76,0.5)",
+                boxShadow: "0 0 40px rgba(201,168,76,0.08), 0 0 0 6px rgba(201,168,76,0.04)",
+              }}
+            >
+              <Image
+                src="/headshot.jpg"
+                alt="John Moffa"
+                fill
+                className="object-cover object-top"
+                priority
               />
-
-              {/* Middle ring */}
-              <div
-                className="absolute inset-4 rounded-full"
-                style={{ border: "1px solid rgba(0,113,227,0.2)" }}
-              />
-
-              {/* Blue arc accent */}
-              <svg
-                className="absolute inset-0 w-full h-full"
-                viewBox="0 0 400 400"
-                fill="none"
-                aria-hidden="true"
-                style={{ animation: "spin 12s linear infinite reverse" }}
-              >
-                <circle
-                  cx="200" cy="200" r="190"
-                  stroke="url(#arcGrad)"
-                  strokeWidth="1.5"
-                  strokeDasharray="120 1070"
-                  strokeLinecap="round"
-                />
-                <defs>
-                  <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#0071e3" stopOpacity="0" />
-                    <stop offset="50%" stopColor="#0071e3" stopOpacity="1" />
-                    <stop offset="100%" stopColor="#0071e3" stopOpacity="0" />
-                  </linearGradient>
-                </defs>
-              </svg>
-
-              {/* Photo circle */}
-              <div
-                className="absolute inset-8 rounded-full overflow-hidden"
-                style={{
-                  border: "2px solid rgba(255,255,255,0.08)",
-                  boxShadow: "0 0 60px rgba(0,0,0,0.8), 0 0 30px rgba(0,113,227,0.1)",
-                }}
-              >
-                <Image
-                  src="/headshot.jpg"
-                  alt="John Moffa"
-                  fill
-                  className="object-cover object-top"
-                  priority
-                />
-              </div>
-
-              {/* Dot accents on ring */}
-              {[0, 90, 180, 270].map((deg) => (
-                <div
-                  key={deg}
-                  className="absolute w-1.5 h-1.5 rounded-full"
-                  style={{
-                    background: "var(--blue)",
-                    top: "50%",
-                    left: "50%",
-                    transform: `rotate(${deg}deg) translateX(186px) translateY(-50%)`,
-                    opacity: 0.6,
-                  }}
-                />
-              ))}
             </div>
           </div>
 
         </div>
       </div>
-
-      {/* Spin keyframe inline */}
-      <style>{`@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
     </section>
   );
 }
