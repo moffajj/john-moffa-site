@@ -5,7 +5,8 @@ Oura or read stored credentials during page rendering.
 
 ## Required server secrets
 
-- `SUPABASE_SERVICE_ROLE_KEY`: server-only database access; never prefix it with `NEXT_PUBLIC_`.
+- `SUPABASE_URL`: URL of the dedicated Oura Supabase project.
+- `OURA_SUPABASE_SERVICE_ROLE_KEY`: server-only key for the Oura Supabase project; never prefix it with `NEXT_PUBLIC_`.
 - `OURA_JOIN_SECRET`: invite code required by the join form.
 - `OURA_TOKEN_ENCRYPTION_KEY`: a base64-encoded 32-byte AES key.
 - `CRON_SECRET`: bearer token accepted by the sync route. Vercel supplies this to cron requests.
@@ -24,7 +25,7 @@ Changing or losing this key makes existing encrypted Oura tokens unreadable.
 
 ## Deployment order
 
-1. Add all four secrets to the deployment environment.
+1. Add the Oura service-role key and all three application secrets to the deployment environment.
 2. Apply `supabase/migrations/007_oura_security.sql`.
 3. Deploy the application.
 4. Have existing dashboard members join once more. Migration 007 removes the
@@ -36,3 +37,8 @@ input, and rate-limits repeated attempts through Redis when configured.
 
 Both Oura tables have forced Row Level Security and no client policies. All
 reads and writes go through the server-side Supabase service role.
+
+For migration compatibility, the application temporarily falls back to
+`SUPABASE_ANON_KEY` when `OURA_SUPABASE_SERVICE_ROLE_KEY` is absent. Remove that
+fallback after the dedicated service-role key is configured and migration 007
+has been applied to the Oura Supabase project.

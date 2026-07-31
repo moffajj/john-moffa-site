@@ -21,11 +21,13 @@ export type OuraStatRow = {
 }
 
 function getDatabase() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
-  if (!url || !serviceKey) throw new Error('Oura database is not configured')
+  // Oura and Dynasty use separate Supabase projects. SUPABASE_URL is the
+  // dedicated Oura project; NEXT_PUBLIC_SUPABASE_URL belongs to Dynasty.
+  const url = process.env.SUPABASE_URL
+  const key = process.env.OURA_SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY
+  if (!url || !key) throw new Error('Oura database is not configured')
 
-  return createClient(url, serviceKey, {
+  return createClient(url, key, {
     auth: { autoRefreshToken: false, persistSession: false },
   })
 }
