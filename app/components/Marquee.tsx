@@ -1,25 +1,20 @@
 const items = [
-  "Customer Operations",
-  "Enterprise Onboarding",
-  "Technical Implementation",
-  "GTM Execution",
-  "SaaS Operations",
   "IT Operations",
-  "Support & Escalation",
+  "GTM Strategy",
+  "Customer Operations",
+  "Technical Support",
   "Product Feedback",
-  "Sales Collaboration",
-  "Remote Workplace Ops",
-  "Rollout Strategy",
-  "Cross-Functional Leadership",
-  "Customer Enablement",
-  "Process Improvement",
+  "Project Management",
+  "AV Support",
+  "Social Media Content",
+  "MBA",
 ];
 
 export default function Marquee() {
   const doubled = [...items, ...items];
   return (
     <div
-      className="py-4 overflow-hidden border-y select-none"
+      className="py-5 overflow-hidden border-y select-none"
       style={{ borderColor: "var(--border)", background: "var(--bg-1)" }}
     >
       <div className="marquee-track">
@@ -27,7 +22,7 @@ export default function Marquee() {
           <span key={i} className="inline-flex items-center gap-5 px-5">
             <span
               className="text-xs font-semibold tracking-widest uppercase whitespace-nowrap"
-              style={{ color: "var(--muted)" }}
+              style={{ color: "var(--muted)", fontSize: 15 }}
             >
               {item}
             </span>

@@ -6,13 +6,21 @@ const roles = [
   "Director of Customer Operations",
   "Head of Customer Operations",
   "Director of Customer Experience & Operations",
-  "Director of Enterprise Solutions",
-  "Technical Customer Operations",
-  "GTM Operations",
-  "Solutions Consulting",
+  "Head of IT Operations",
+  "Director of IT Operations",
+  "Director of Technical Solutions",
+  "Head of Technical Onboarding",
+  "Head of Implementation",
+  "Director of Technical Account Management",
+  "Head of Customer Success",
+  "Director of GTM Operations",
   "Implementation Leadership",
-  "SaaS Operations",
-  "Fractional Customer Operations",
+  "Solutions Engineer",
+  "AI Outcomes",
+  "Technical Delivery",
+  "Professional Services",
+  "AI Transformation",
+  "Customer Solutions Architect",
 ];
 
 export default function BestFit() {
@@ -31,8 +39,7 @@ export default function BestFit() {
             Open to
           </p>
           <h2
-            className="font-bold tracking-tight"
-            style={{ color: "var(--head)", fontSize: "clamp(2.5rem, 5vw, 4rem)", letterSpacing: "-0.02em" }}
+            style={{ color: "var(--head)", fontFamily: "var(--font-display)", fontSize: "clamp(3rem, 6vw, 5rem)", letterSpacing: "0.03em", lineHeight: 0.9, textTransform: "uppercase" }}
           >
             Where I fit best
           </h2>
@@ -42,8 +49,8 @@ export default function BestFit() {
           {roles.map((role) => (
             <span
               key={role}
-              className="text-sm font-medium px-5 py-2.5 rounded-full transition-all duration-200 hover:bg-white hover:text-black cursor-default"
-              style={{ border: "1px solid var(--border)", color: "var(--head)" }}
+              className="text-sm font-medium px-5 py-2.5 rounded-full transition-all duration-200 hover:bg-white hover:text-black cursor-default text-white"
+              style={{ border: "1px solid var(--border)" }}
             >
               {role}
             </span>

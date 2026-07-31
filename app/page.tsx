@@ -1,12 +1,13 @@
 import Nav from "@/app/components/Nav";
 import Hero from "@/app/components/Hero";
-import Marquee from "@/app/components/Marquee";
+import MobileNav from "@/app/components/MobileNav";
 import WhatIDo from "@/app/components/WhatIDo";
 import About from "@/app/components/About";
 import Podcast from "@/app/components/Podcast";
 import Experience from "@/app/components/Experience";
 import BestFit from "@/app/components/BestFit";
-import Consulting from "@/app/components/Consulting";
+import AIAgents from "@/app/components/AIAgents";
+import Tools from "@/app/components/Tools";
 import Hobbies from "@/app/components/Hobbies";
 import Contact from "@/app/components/Contact";
 
@@ -16,16 +17,17 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
-        <Marquee />
         <WhatIDo />
         <About />
-        <Podcast />
         <Experience />
+        <Tools />
         <BestFit />
-        <Consulting />
+        <AIAgents />
+        <Podcast />
         <Hobbies />
         <Contact />
       </main>
+      <MobileNav />
       <footer
         className="py-8 px-8"
         style={{ borderTop: "1px solid var(--border)", background: "var(--bg)" }}

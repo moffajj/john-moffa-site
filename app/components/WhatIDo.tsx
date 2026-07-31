@@ -1,25 +1,22 @@
 "use client";
 
+import { m } from "framer-motion";
 import { useReveal } from "@/app/hooks/useReveal";
 
 const areas = [
   {
-    num: "01",
     title: "Customer Operations",
-    body: "Building the systems, processes, and communication loops that move customers from interest to adoption — without the chaos.",
+    body: "Building the systems, processes, and communication loops that move customers from interest to adoption, without the chaos.",
   },
   {
-    num: "02",
     title: "Enterprise Onboarding & Implementation",
     body: "Rollout plans, training flows, and stakeholder alignment that help teams get value faster.",
   },
   {
-    num: "03",
-    title: "Technical Solutions & Support",
-    body: "Bridging customers, product, and engineering to solve technical problems and reduce friction.",
+    title: "Technical Support & Solutions Engineering",
+    body: "Bridging the technical and the human, translating complex product capabilities into clear solutions that map to real customer problems, and solving the hard ones when they escalate.",
   },
   {
-    num: "04",
     title: "GTM & Cross-Functional Execution",
     body: "Partnering with Sales, Marketing, Product, and Engineering to support demos, launches, feedback loops, and growth.",
   },
@@ -42,36 +39,40 @@ export default function WhatIDo() {
             What I do
           </p>
           <h2
-            className="font-bold tracking-tight leading-[1.05]"
-            style={{ color: "var(--head)", fontSize: "clamp(2.5rem, 5vw, 4rem)", letterSpacing: "-0.02em" }}
+            style={{ color: "var(--head)", fontFamily: "var(--font-display)", fontSize: "clamp(3rem, 6vw, 5rem)", letterSpacing: "0.03em", lineHeight: 0.9, textTransform: "uppercase" }}
           >
             Where I create value
           </h2>
         </div>
 
         {/* Four areas — editorial layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-px" style={{ background: "var(--border)" }}>
+        <m.div
+          className="grid grid-cols-1 md:grid-cols-2"
+          style={{ gap: 16 }}
+          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }}
+          whileInView="show"
+          initial="hidden"
+          viewport={{ once: true, margin: "-80px" }}
+        >
           {areas.map((a, i) => (
-            <div
-              key={a.num}
-              className={`reveal d${i + 1} group p-10 transition-colors duration-300 hover:bg-white/[0.03]`}
-              style={{ background: "var(--bg)" }}
+            <m.div
+              key={a.title}
+              className={`value-card reveal d${i + 1}`}
+              style={{ background: "#0f0f0f", padding: 36 }}
+              variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } } }}
             >
-              <span className="text-xs font-bold tracking-widest mb-6 block" style={{ color: "var(--muted)" }}>
-                {a.num}
-              </span>
               <h3
-                className="text-2xl font-bold mb-4 group-hover:text-white transition-colors duration-200"
-                style={{ color: "var(--head)", letterSpacing: "-0.01em" }}
+                className="value-card-title text-2xl font-bold mb-4"
+                style={{ color: "var(--head)", letterSpacing: "-0.01em", transition: "color 0.25s ease" }}
               >
                 {a.title}
               </h3>
-              <p className="text-base leading-relaxed" style={{ color: "var(--body)" }}>
+              <p className="value-card-body text-base leading-relaxed" style={{ color: "var(--body)", transition: "color 0.25s ease" }}>
                 {a.body}
               </p>
-            </div>
+            </m.div>
           ))}
-        </div>
+        </m.div>
       </div>
     </section>
   );

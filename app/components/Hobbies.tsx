@@ -4,34 +4,34 @@ import { useReveal } from "@/app/hooks/useReveal";
 
 const interests = [
   {
-    emoji: "🎵",
-    title: "Music",
-    body: "Music has always been a constant. Good playlist, good headphones — any day gets better.",
+    emoji: "❤️",
+    title: "Family",
+    body: "Long Island born and raised. Married my high school sweetheart and never looked back. Big Italian family, loud, close, and always around a table. My nephews and niece are everything. They're the best part of any weekend.",
   },
   {
-    emoji: "🍕",
-    title: "Food & Cooking",
-    body: "New York makes it easy to eat well. I take full advantage of that. Cooking at home is the reset button.",
+    emoji: "🏆",
+    title: "Sports",
+    body: "Sports has been a constant since I was a kid and taught me more life lessons than I can count. Yankees. Knicks. Rangers. And yes, the San Francisco 49ers. Random for a Long Island guy, I know. 80s baby. Go Niners.",
+  },
+  {
+    emoji: "🎵",
+    title: "Music",
+    body: "Open to anything with a good beat but Classic Rock, EDM, and Hip Hop are home base. Italian music while cooking is non-negotiable.",
   },
   {
     emoji: "✈️",
     title: "Travel",
-    body: "New places, new context. Traveling resets the way I think — and I'm always looking for the next trip.",
+    body: "Always down to explore somewhere new, whether it's a different country or a weekend road trip a few hours away. New places, new people, new perspective. Sometimes that's all you need.",
   },
   {
-    emoji: "⚽",
-    title: "Sports",
-    body: "Big sports fan. Always watching, occasionally playing. It's competitive, which suits me fine.",
+    emoji: "🍝",
+    title: "Food & Cooking",
+    body: "New York makes it easy to eat well and I take full advantage of that. But honestly, cooking at home is where it's at for me. There's something therapeutic about it. Italian music on, glass of wine, and I'm in my element. Baking? Not so much.",
   },
   {
-    emoji: "💻",
-    title: "Tech & Gadgets",
-    body: "I work in tech and genuinely love it. New tools, new products — I'm always tinkering with something.",
-  },
-  {
-    emoji: "🎙️",
-    title: "Podcasting",
-    body: "Running Makes Remote Work taught me that a good conversation is its own kind of craft. Still learning.",
+    emoji: "🎮",
+    title: "Gaming",
+    body: "Love a good gaming session to unwind and unplug. Great way to switch the brain off after a long week. #TeamXbox",
   },
 ];
 
@@ -51,8 +51,7 @@ export default function Hobbies() {
             Outside of work
           </p>
           <h2
-            className="font-bold tracking-tight max-w-xl"
-            style={{ color: "var(--head)", fontSize: "clamp(2.5rem, 5vw, 4rem)", letterSpacing: "-0.02em" }}
+            style={{ color: "var(--head)", fontFamily: "var(--font-display)", fontSize: "clamp(3rem, 6vw, 5rem)", letterSpacing: "0.03em", lineHeight: 0.9, textTransform: "uppercase" }}
           >
             Life beyond the laptop
           </h2>

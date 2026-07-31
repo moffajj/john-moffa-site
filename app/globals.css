@@ -11,6 +11,7 @@
   --muted:  #444444;
   --blue:   #0071e3;
   --blue-2: #2997ff;
+  --amber:  #c9a84c;
 }
 
 * { box-sizing: border-box; }
@@ -22,7 +23,38 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  font-size: 17px;
+}
+
+/* ── Font size overrides ────────────────────────────────────────────────── */
+
+/* Body / paragraph */
+p, li { font-size: 1rem; }
+
+/* Nav links */
+nav a, header a { font-size: 15px; }
+
+/* Section labels — uppercase small caps, keep modest */
+.text-xs { font-size: 12px !important; }
+
+/* Skill tags, chips, small UI text */
+.text-xs.px-3,
+.text-xs.px-4,
+span.text-xs { font-size: 13px !important; }
+
+/* Muted metadata (dates, industry) */
+.text-sm { font-size: 15px; }
+
+/* Button text */
+button, a.rounded-full { font-size: 15px; }
+
+/* Carousel caption */
+.carousel-caption { font-size: 14px; }
+
+/* Agent card inputs and labels */
+input, select, textarea { font-size: 15px !important; }
 
 /* Reveal animations */
 .reveal {
@@ -80,9 +112,49 @@ html { scroll-behavior: smooth; }
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee 40s linear infinite;
+  animation: marquee 57s linear infinite;
 }
 .marquee-track:hover { animation-play-state: paused; }
+
+/* Tools & Systems chips */
+.tool-chip {
+  transition: all 0.2s ease;
+}
+.tool-chip:hover {
+  border-color: #c9a84c !important;
+  background: #141414 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(201,168,76,0.08);
+}
+.tool-chip:hover .tool-chip-text {
+  color: #f0ede8 !important;
+}
+
+/* Experience expand triggers */
+.expand-trigger:hover {
+  border-color: #444 !important;
+}
+
+/* Where I Create Value cards */
+.value-card {
+  border-radius: 16px;
+  border: 1px solid #1e1e1e;
+  border-top: 2px solid #c9a84c;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+.value-card:hover {
+  background: #f0ede8 !important;
+  border-color: #f0ede8 !important;
+  border-top-color: #0a0a0a !important;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+.value-card:hover .value-card-title {
+  color: #0a0a0a !important;
+}
+.value-card:hover .value-card-body {
+  color: #444 !important;
+}
 
 /* Pulse */
 @keyframes pulse-dot {
@@ -90,3 +162,10 @@ html { scroll-behavior: smooth; }
   50% { opacity: 0.3; }
 }
 .pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+
+@media (max-width: 768px) {
+  .hero-cta-row { display: none; }
+}
+
+/* Framer Motion performance */
+[data-framer-motion] { will-change: transform; }

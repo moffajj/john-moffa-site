@@ -29,8 +29,7 @@ export default function Consulting() {
               Advisory
             </p>
             <h2
-              className="font-bold tracking-tight"
-              style={{ color: "var(--head)", fontSize: "clamp(2.5rem, 5vw, 4rem)", letterSpacing: "-0.02em" }}
+              style={{ color: "var(--head)", fontFamily: "var(--font-display)", fontSize: "clamp(3rem, 6vw, 5rem)", letterSpacing: "0.03em", lineHeight: 0.9, textTransform: "uppercase" }}
             >
               Consulting &amp; advisory
             </h2>
