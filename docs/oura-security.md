@@ -35,6 +35,8 @@ The scheduled route accepts only requests with
 `Authorization: Bearer <CRON_SECRET>`. The join route is invite-gated, validates
 input, and rate-limits repeated attempts through Redis when configured.
 
+Vercel invokes the sync route hourly, at 15 minutes past each hour.
+
 Both Oura tables have forced Row Level Security and no client policies. All
 reads and writes go through the server-side Supabase service role.
 
