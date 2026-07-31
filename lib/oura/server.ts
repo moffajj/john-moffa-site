@@ -152,9 +152,37 @@ export async function saveOuraUser(userId: string, displayName: string, encrypte
   if (error) throw new Error('Unable to save Oura account')
 }
 
-export async function getOuraUsersForSync() {
-  const { data, error } = await getDatabase().from('oura_users')
+export type OuraSyncUser = {
+  user_id: string
+  token: string
+  encrypted: boolean
+}
+
+export async function getOuraUsersForSync(): Promise<OuraSyncUser[]> {
+  const database = getDatabase()
+  const encrypted = await database.from('oura_users')
     .select('user_id, token_ciphertext').not('token_ciphertext', 'is', null)
-  if (error) throw new Error('Unable to load Oura accounts')
-  return (data ?? []) as { user_id: string; token_ciphertext: string }[]
+
+  if (!encrypted.error) {
+    return (encrypted.data ?? []).map(user => ({
+      user_id: user.user_id as string,
+      token: user.token_ciphertext as string,
+      encrypted: true,
+    }))
+  }
+
+  // Compatibility for the original Oura schema. Migration 007 removes this
+  // path by dropping oura_pat after members have rejoined with encrypted tokens.
+  if (encrypted.error.code === '42703' || encrypted.error.code === 'PGRST204') {
+    const legacy = await database.from('oura_users').select('user_id, oura_pat').not('oura_pat', 'is', null)
+    if (!legacy.error) {
+      return (legacy.data ?? []).map(user => ({
+        user_id: user.user_id as string,
+        token: user.oura_pat as string,
+        encrypted: false,
+      }))
+    }
+  }
+
+  throw new Error('Unable to load Oura accounts')
 }

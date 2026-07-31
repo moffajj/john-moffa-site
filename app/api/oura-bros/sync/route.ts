@@ -22,7 +22,7 @@ async function sync(request: Request) {
   try {
     const users = await getOuraUsersForSync()
     const results = await Promise.allSettled(users.map(async user => {
-      const token = decryptOuraToken(user.token_ciphertext)
+      const token = user.encrypted ? decryptOuraToken(user.token) : user.token
       const rows = await fetchOuraRows(user.user_id, token)
       await replaceOuraRows(user.user_id, rows)
       return { userId: user.user_id, daysWritten: rows.length }

@@ -35,7 +35,8 @@ The scheduled route accepts only requests with
 `Authorization: Bearer <CRON_SECRET>`. The join route is invite-gated, validates
 input, and rate-limits repeated attempts through Redis when configured.
 
-Vercel invokes the sync route hourly, at 15 minutes past each hour.
+GitHub Actions invokes the sync route hourly, at 15 minutes past each hour.
+Vercel also invokes it once daily as a fallback.
 
 Both Oura tables have forced Row Level Security and no client policies. All
 reads and writes go through the server-side Supabase service role.
@@ -44,3 +45,7 @@ For migration compatibility, the application temporarily falls back to
 `SUPABASE_ANON_KEY` when `OURA_SUPABASE_SERVICE_ROLE_KEY` is absent. Remove that
 fallback after the dedicated service-role key is configured and migration 007
 has been applied to the Oura Supabase project.
+
+Until migration 007 is applied, the sync route can read legacy `oura_pat`
+credentials for existing members. This compatibility path should be removed
+after all members have rejoined and encrypted credentials are present.

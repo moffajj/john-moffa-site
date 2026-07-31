@@ -1,0 +1,27 @@
+name: Oura hourly sync
+
+on:
+  schedule:
+    - cron: "15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: oura-hourly-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Refresh Oura statistics
+        env:
+          CRON_SECRET: ${{ secrets.OURA_CRON_SECRET }}
+        run: |
+          curl --fail --silent --show-error --retry 2 \
+            --request POST \
+            --header "Authorization: Bearer ${CRON_SECRET}" \
+            https://johnmoffa.com/api/oura-bros/sync
