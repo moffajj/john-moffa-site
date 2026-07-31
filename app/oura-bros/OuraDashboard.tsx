@@ -10,6 +10,21 @@ const USER_DISPLAY_NAMES: Record<string, string> = { me: 'John' }
 const displayName = (id: string) =>
   USER_DISPLAY_NAMES[id] ?? id.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
 
+const formatLastUpdated = (value?: string) => {
+  if (!value) return '—'
+  const date = new Date(value)
+  if (Number.isNaN(date.getTime())) return '—'
+  return new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    timeZoneName: 'short',
+  }).format(date)
+}
+
 type MetricKey = 'readiness_score' | 'sleep_score' | 'activity_score' | 'steps' | 'active_calories' | 'temperature_deviation' | 'stress_high'
 
 const METRIC_STYLES: Record<MetricKey, {
@@ -398,7 +413,9 @@ export default function OuraDashboard({ stats }: { stats: OuraStat[] }) {
     byUser[s.user_id].push(s)
   }
 
-  const latestDay = [...stats.map(s => s.day)].sort().at(-1)
+  const latestUpdate = formatLastUpdated(
+    [...stats.map(s => s.updated_at)].sort().at(-1),
+  )
 
   const filteredStats = (() => {
     const rangeDef = TIME_RANGES.find(r => r.key === timeRange)!
@@ -586,13 +603,13 @@ export default function OuraDashboard({ stats }: { stats: OuraStat[] }) {
               </h1>
               {!isMobile && (
                 <p style={{ fontSize: 12, color: '#8a98b8', marginTop: 3, marginBottom: 0 }}>
-                  Health stats dashboard · last updated {latestDay ?? '—'}
+                  Health stats dashboard · last updated {latestUpdate}
                 </p>
               )}
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 8 : 12 }}>
               {isMobile && (
-                <span style={{ fontSize: 11, color: '#6878a0' }}>{latestDay ?? '—'}</span>
+                <span style={{ fontSize: 11, color: '#6878a0' }}>{latestUpdate}</span>
               )}
               <a
                 href="https://ouraring.com"
