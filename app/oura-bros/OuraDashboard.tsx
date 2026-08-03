@@ -7,6 +7,7 @@ import type { OuraStat } from './page'
 const COLOR_PALETTE = ['#ddaa61', '#3184ff', '#55dc83', '#c0865d', '#e7a7c6', '#d7e2e8']
 
 const USER_DISPLAY_NAMES: Record<string, string> = { me: 'John' }
+const USER_COLORS: Record<string, string> = { dan: '#a855f7' }
 const displayName = (id: string) =>
   USER_DISPLAY_NAMES[id] ?? id.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
 
@@ -422,7 +423,7 @@ export default function OuraDashboard({ stats }: { stats: OuraStat[] }) {
 
   const users = [...new Set(stats.map(s => s.user_id))].sort()
   const colors: Record<string, string> = {}
-  users.forEach((u, i) => { colors[u] = COLOR_PALETTE[i % COLOR_PALETTE.length] })
+  users.forEach((u, i) => { colors[u] = USER_COLORS[u] ?? COLOR_PALETTE[i % COLOR_PALETTE.length] })
 
   const byUser: Record<string, OuraStat[]> = {}
   for (const s of stats) {
