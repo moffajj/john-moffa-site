@@ -25,6 +25,16 @@ const formatLastUpdated = (value?: string) => {
   }).format(date)
 }
 
+const formatDataDay = (value?: string) => {
+  if (!value) return '—'
+  const [year, month, day] = value.split('-').map(Number)
+  if (!year || !month || !day) return value
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: 'numeric',
+  }).format(new Date(Date.UTC(year, month - 1, day)))
+}
+
 type MetricKey = 'readiness_score' | 'sleep_score' | 'activity_score' | 'steps' | 'active_calories' | 'temperature_deviation' | 'stress_high'
 
 const METRIC_STYLES: Record<MetricKey, {
@@ -99,24 +109,28 @@ function TrendBadge({ current, prev }: { current: number; prev: number | null })
 
 function UserCard({ userId, stats, color, isMobile }: { userId: string; stats: OuraStat[]; color: string; isMobile: boolean }) {
   const sorted = [...stats].sort((a, b) => b.day.localeCompare(a.day))
-  // Use most recent day with a non-zero readiness score — Oura returns 0 until scores are calculated
-  const todayIdx = sorted.findIndex(s => parseFloat(s.readiness_score ?? '') > 0)
-  const today = todayIdx >= 0 ? sorted[todayIdx] : sorted[0]
-  const yesterday = sorted[todayIdx + 1] ?? null
-
   const pf = (v: string | null | undefined) => { const n = parseFloat(v as string); return isNaN(n) ? null : n }
 
-  const r = pf(today.readiness_score)
-  const s = pf(today.sleep_score)
-  const a = pf(today.activity_score)
-  const rY = yesterday ? pf(yesterday.readiness_score) : null
-  const sY = yesterday ? pf(yesterday.sleep_score) : null
-  const aY = yesterday ? pf(yesterday.activity_score) : null
+  // Daily scores are complete only after Oura processes sleep/readiness. Activity
+  // fields can arrive earlier, so display the newest partial activity row instead
+  // of holding all four supporting metrics on the completed-score day.
+  const scoreDayIdx = sorted.findIndex(s => pf(s.readiness_score) !== null && pf(s.readiness_score)! > 0)
+  const scoreDay = scoreDayIdx >= 0 ? sorted[scoreDayIdx] : sorted[0]
+  const previousScoreDay = sorted.slice(scoreDayIdx + 1).find(s => pf(s.readiness_score) !== null) ?? null
+  const activityDay = sorted.find(s => pf(s.steps) !== null || pf(s.active_calories) !== null) ?? scoreDay
+  const stressDay = sorted.find(s => pf(s.stress_high) !== null) ?? activityDay
 
-  const steps = pf(today.steps)
-  const aCal = pf(today.active_calories)
-  const temp = pf(today.temperature_deviation)
-  const stress = pf(today.stress_high)
+  const r = pf(scoreDay.readiness_score)
+  const s = pf(scoreDay.sleep_score)
+  const a = pf(scoreDay.activity_score)
+  const rY = previousScoreDay ? pf(previousScoreDay.readiness_score) : null
+  const sY = previousScoreDay ? pf(previousScoreDay.sleep_score) : null
+  const aY = previousScoreDay ? pf(previousScoreDay.activity_score) : null
+
+  const steps = pf(activityDay.steps)
+  const aCal = pf(activityDay.active_calories)
+  const temp = pf(scoreDay.temperature_deviation)
+  const stress = pf(stressDay.stress_high)
 
   const fmt = (v: number | null, fn: (n: number) => string) => v != null ? fn(v) : '—'
 
@@ -152,7 +166,10 @@ function UserCard({ userId, stats, color, isMobile }: { userId: string; stats: O
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
           <div style={{ width: 8, height: 8, borderRadius: '50%', background: color, flexShrink: 0, boxShadow: `0 0 6px ${color}80` }} />
           <span style={{ fontSize: 15, fontWeight: 600, color: '#f7f1e8' }}>{displayName(userId)}</span>
-          <span style={{ fontSize: 11, color: '#6878a0', marginLeft: 'auto' }}>{today.day}</span>
+          <span style={{ fontSize: 11, color: '#6878a0', marginLeft: 'auto', textAlign: 'right' }}>
+            Scores {formatDataDay(scoreDay.day)}
+            {activityDay.day !== scoreDay.day && <><br />Activity {formatDataDay(activityDay.day)}</>}
+          </span>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8, marginBottom: 20 }}>
@@ -416,6 +433,7 @@ export default function OuraDashboard({ stats }: { stats: OuraStat[] }) {
   const latestUpdate = formatLastUpdated(
     [...stats.map(s => s.updated_at)].sort().at(-1),
   )
+  const latestDataDay = formatDataDay([...stats.map(s => s.day)].sort().at(-1))
 
   const filteredStats = (() => {
     const rangeDef = TIME_RANGES.find(r => r.key === timeRange)!
@@ -603,13 +621,15 @@ export default function OuraDashboard({ stats }: { stats: OuraStat[] }) {
               </h1>
               {!isMobile && (
                 <p style={{ fontSize: 12, color: '#8a98b8', marginTop: 3, marginBottom: 0 }}>
-                  Health stats dashboard · last updated {latestUpdate}
+                  Health stats dashboard · last sync attempt {latestUpdate} · data through {latestDataDay}
                 </p>
               )}
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 8 : 12 }}>
               {isMobile && (
-                <span style={{ fontSize: 11, color: '#6878a0' }}>{latestUpdate}</span>
+                <span style={{ fontSize: 10, color: '#6878a0', textAlign: 'right', lineHeight: 1.35 }}>
+                  Synced {latestUpdate}<br />Data through {latestDataDay}
+                </span>
               )}
               <a
                 href="https://ouraring.com"
