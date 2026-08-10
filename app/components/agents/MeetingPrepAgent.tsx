@@ -66,7 +66,9 @@ const STAKEHOLDER_OPTIONS = [
   "Founder/CEO", "Exec Team", "Sales VP", "HR", "IT/Security Team", "Account Exec",
 ];
 
-// Known executives for Fortune 500 companies
+const HUBSPOT_ENABLED = process.env.NEXT_PUBLIC_HUBSPOT_ENABLED === "true";
+
+// Known executives for well-known companies (falls back gracefully for unknown companies)
 const KNOWN_EXECUTIVES: Record<string, { name: string; role: string; linkedin: string }[]> = {
   Apple: [
     { name: "Tim Cook", role: "CEO", linkedin: "https://www.linkedin.com/in/timcook" },
@@ -339,7 +341,7 @@ export default function MeetingPrepAgent() {
   // Form state
   const [userName, setUserName] = useState("");
   const [meetingType, setMeetingType] = useState(MEETING_TYPES[0]);
-  const [company, setCompany] = useState(COMPANIES[0]);
+  const [company, setCompany] = useState("");
   const [industry, setIndustry] = useState(INDUSTRIES[0]);
   const [companyDescription, setCompanyDescription] = useState("");
   const [prior, setPrior] = useState(PRIOR_OPTIONS[0]);
@@ -489,7 +491,7 @@ export default function MeetingPrepAgent() {
         </div>
         <div className="mb-3">
           <p className="agent-description" style={{ color: "#aaa", fontSize: 15, lineHeight: 1.7 }}>
-            I built this to show what&apos;s possible when you apply AI to real business problems. This meeting prep tool is one example, but the same approach works for any workflow: onboarding, support triage, client reporting, internal ops, you name it. Select from real Fortune 500 companies and get back a complete pre-call brief with actual stakeholder data, ranked next steps, and a follow-up email ready to send. If your team has a repetitive, high-context process, it can probably be automated or augmented like this. Built with Claude. Fully functional. Try it below.
+            I built this to show what&apos;s possible when you apply AI to real business problems. This meeting prep tool is one example, but the same approach works for any workflow: onboarding, support triage, client reporting, internal ops, you name it. Enter any company name and get back a complete pre-call brief with stakeholder context, ranked next steps, and a follow-up email ready to send. If your team has a repetitive, high-context process, it can probably be automated or augmented like this. Built with Claude. Fully functional. Try it below.
           </p>
         </div>
       </div>
@@ -528,9 +530,17 @@ export default function MeetingPrepAgent() {
               </div>
               <div>
                 <label className="block text-xs mb-2" style={{ color: S.body }}>Customer Company</label>
-                <select value={company} onChange={(e) => setCompany(e.target.value)} style={inputStyle}>
-                  {COMPANIES.map((c) => <option key={c}>{c}</option>)}
-                </select>
+                <input
+                  type="text"
+                  list="company-suggestions"
+                  value={company}
+                  onChange={(e) => setCompany(e.target.value)}
+                  placeholder="Type any company name…"
+                  style={inputStyle}
+                />
+                <datalist id="company-suggestions">
+                  {COMPANIES.map((c) => <option key={c} value={c} />)}
+                </datalist>
               </div>
               <div>
                 <label className="block text-xs mb-2" style={{ color: S.body }}>Your Industry</label>
@@ -593,7 +603,7 @@ export default function MeetingPrepAgent() {
               />
             </div>
             <div>
-              <label className="block text-xs mb-3" style={{ color: S.body }}>Key Stakeholders attending from {company}</label>
+              <label className="block text-xs mb-3" style={{ color: S.body }}>Key Stakeholders attending{company ? ` from ${company}` : ""}</label>
               <div className="flex flex-wrap gap-2">
                 {STAKEHOLDER_OPTIONS.map((s) => (
                   <button
@@ -915,8 +925,8 @@ export default function MeetingPrepAgent() {
               </button>
             </div>
 
-            {/* CRM sync */}
-            <div className="mt-6">
+            {/* CRM sync — only shown when HubSpot is configured */}
+            {HUBSPOT_ENABLED && <div className="mt-6">
               <p style={{ fontSize: 11, color: S.amber, letterSpacing: "2px", textTransform: "uppercase", fontWeight: 700, marginBottom: 12 }}>
                 Sync to your CRM
               </p>
@@ -1040,7 +1050,7 @@ export default function MeetingPrepAgent() {
                   </button>
                 </div>
               )}
-            </div>
+            </div>}
 
             {/* Footer */}
             <div className="mt-6" style={{ display: "flex", alignItems: "center", gap: 10 }}>

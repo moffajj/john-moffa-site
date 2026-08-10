@@ -1,6 +1,27 @@
 import { NextRequest, NextResponse } from "next/server";
+import { Redis } from "@upstash/redis";
 
 export const maxDuration = 30;
+
+async function checkRateLimit(): Promise<boolean> {
+  const url = process.env.KV_REST_API_URL;
+  const token = process.env.KV_REST_API_TOKEN;
+  if (!url || !token) return true; // skip if Redis not configured
+
+  const dailyLimit = parseInt(process.env.RATE_LIMIT_DAILY ?? "50", 10);
+  const today = new Date().toISOString().slice(0, 10);
+  const key = `meeting-prep:rate:${today}`;
+
+  try {
+    const redis = new Redis({ url, token });
+    const count = await redis.incr(key);
+    if (count === 1) await redis.expire(key, 86400);
+    return count <= dailyLimit;
+  } catch (err) {
+    console.warn("Rate limit check failed, allowing request:", err);
+    return true;
+  }
+}
 
 export async function POST(req: NextRequest) {
   // ── API key check ────────────────────────────────────────────────────────────
@@ -8,6 +29,15 @@ export async function POST(req: NextRequest) {
   if (!apiKey) {
     console.error("Meeting prep error: ANTHROPIC_API_KEY is not set");
     return NextResponse.json({ error: "Missing API key" }, { status: 500 });
+  }
+
+  // ── Rate limit ───────────────────────────────────────────────────────────────
+  const allowed = await checkRateLimit();
+  if (!allowed) {
+    return NextResponse.json(
+      { error: "Daily request limit reached. Please try again tomorrow." },
+      { status: 429 }
+    );
   }
 
   // ── Parse body ───────────────────────────────────────────────────────────────
